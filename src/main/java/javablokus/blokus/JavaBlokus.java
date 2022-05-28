@@ -6,23 +6,24 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.net.*;
-import java.util.Scanner;
 
-public class HelloApplication extends Application {
+public class JavaBlokus extends Application {
+    private static Stage stg;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        FXMLLoader fxmlLoader = new FXMLLoader(JavaBlokus.class.getResource("start-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        stage.setTitle("JavaBlokus");
         stage.setScene(scene);
         stage.show();
-
-
+        stg = stage;
     }
 
     public static void main(String[] args) {
         launch();
     }
 
+    public static void changeView(Scene sn) {
+        stg.setScene(sn);
+    }
 }
