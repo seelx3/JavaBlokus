@@ -9,9 +9,12 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class StartController {
+
+
     public static BlokusClient bc;
 
     void connectToServer() {
+
         try{
             bc = new BlokusClient();
             bc.setPlayerName(playername.getText());
@@ -20,16 +23,6 @@ public class StartController {
             System.err.println(e);
             System.out.println("Connection Failed!");
             // TODO: 接続やりなおし
-        }
-
-        // waiting-view に遷移
-        try {
-            Parent parent = FXMLLoader.load(getClass().getResource("waiting-view.fxml"));
-            Scene scene = new Scene(parent, 800, 600);
-            JavaBlokus.changeView(scene);
-        } catch (IOException e) {
-            System.err.println(e);
-            System.out.println("Change View to Waiting-view");
         }
 
         // 名前をサーバーに送信
@@ -43,7 +36,14 @@ public class StartController {
             System.out.println("Get playerID Failed!");
         }
 
-        // TODO: 待ち合わせ状態に遷移(サーバーからの応答を待つ)
+        // TODO:  waiting-viewが表示されない原因を探って解決する
+        // waiting-view に遷移
+        try {
+            bc.changeView("waiting-view.fxml");
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+
         bc.waitForStart();
     }
 

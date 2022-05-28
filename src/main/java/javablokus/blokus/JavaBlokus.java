@@ -23,7 +23,7 @@ public class JavaBlokus extends Application {
         launch();
     }
 
-    public static void changeView(Scene sn) {
+    public static void setView(Scene sn) {
         stg.setScene(sn);
     }
 }

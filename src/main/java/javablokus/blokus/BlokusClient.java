@@ -4,6 +4,12 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+
 public class BlokusClient {
     final int PORT = 8090;
     InetAddress addr;
@@ -12,6 +18,10 @@ public class BlokusClient {
     PrintWriter out;
     int playerId;
     private String playerName;
+
+    Communication comObj;
+
+    ObjectMapper mapper;
 
     public void Init() throws IOException {
         addr = InetAddress.getByName("localhost");
@@ -28,6 +38,7 @@ public class BlokusClient {
                         new OutputStreamWriter(
                                 socket.getOutputStream())),
                 true);                      // 送信バッファ設定
+        mapper = new ObjectMapper();
 
     }
 
@@ -47,11 +58,29 @@ public class BlokusClient {
     }
 
     public void waitForStart() {
-        // TODO: サーバーからの応答を受け取ってゲーム画面に遷移
-        // TODO: Jackson周りの実装をついか
+        // サーバーからの応答を受け取ってゲーム画面に遷移
 
-        // 自分のターンであればサーバーへ更新後のオブジェクトを送信
-        // そうでなければつぎのサーバーからの受信を待つ
+        System.err.println("wait for start");
+
+        try {
+            String msg = in.readLine();
+            comObj = mapper.readValue(msg, Communication.class);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+        try {
+            changeView("play-view.fxml");
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    }
+
+    public void changeView(String fxmlPath) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource(fxmlPath));
+        Scene scene = new Scene(parent, 800, 600);
+        JavaBlokus.setView(scene);
+        System.out.println("Change View to " + fxmlPath);
     }
 
     void disconnect() throws IOException {

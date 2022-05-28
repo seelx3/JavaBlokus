@@ -3,11 +3,11 @@ package javablokus.blokus;
 import java.util.Arrays;
 
 public class Communication {
-    static int turn;
-    static int[][] board;
-    static boolean giveup;
-    static boolean finished;
-    static String whowon;
+    public static int turn;
+    public static int[][] board;
+    public static boolean giveup;
+    public static boolean finished;
+    public static String whowon;
 
     public static void setCom(int tn, int[][] bd, boolean gu, boolean fin, String ww){
         turn = tn;
