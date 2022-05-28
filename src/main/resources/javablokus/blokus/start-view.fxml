@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javablokus.blokus.StartController">
    <children>
-       <Label layoutX="334.0" layoutY="213.0" text="JavaBlokus">
+       <Label fx:id="starttext" layoutX="334.0" layoutY="213.0" text="JavaBlokus">
          <font>
             <Font size="28.0" />
          </font>

@@ -23,6 +23,10 @@ public class BlokusClient {
 
     ObjectMapper mapper;
 
+    BlokusClient (String pn) {
+        playerName = pn;
+    }
+
     public void Init() throws IOException {
         addr = InetAddress.getByName("localhost");
         System.out.println("addr = " + addr);
@@ -53,6 +57,7 @@ public class BlokusClient {
     }
 
     public void getPlayerId() throws IOException {
+        // サーバーからplayerIdを受け取る
         playerId = Integer.parseInt(in.readLine());
         System.out.println("Set playerID to : " + playerId);
     }
@@ -70,17 +75,35 @@ public class BlokusClient {
         }
 
         try {
-            changeView("play-view.fxml");
+            ViewController vc = new ViewController();
+            vc.changeView("play-view.fxml");
         } catch (IOException e) {
             System.err.println(e);
         }
     }
 
-    public void changeView(String fxmlPath) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource(fxmlPath));
-        Scene scene = new Scene(parent, 800, 600);
-        JavaBlokus.setView(scene);
-        System.out.println("Change View to " + fxmlPath);
+    void connectToServer() {
+        try{
+//            setPlayerName();
+            Init();
+        } catch (IOException e) {
+            System.err.println(e);
+            System.out.println("Connection Failed!");
+            // TODO: 接続やりなおし
+        }
+
+        // 名前をサーバーに送信
+        sendPlayerName();
+
+        // IDをサーバーから取得
+        try {
+            getPlayerId();
+        } catch (IOException e) {
+            System.err.println(e);
+            System.out.println("Get playerID Failed!");
+        }
+
+        waitForStart();
     }
 
     void disconnect() throws IOException {
