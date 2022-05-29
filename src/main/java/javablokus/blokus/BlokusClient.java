@@ -24,7 +24,7 @@ public class BlokusClient {
     ObjectMapper mapper;
 
     BlokusClient (String pn) {
-        playerName = pn;
+        setPlayerName(pn);
     }
 
     public void Init() throws IOException {
@@ -65,14 +65,16 @@ public class BlokusClient {
     public void waitForStart() {
         // サーバーからの応答を受け取ってゲーム画面に遷移
 
-        System.err.println("wait for start");
+        System.out.println("wait for start");
 
         try {
             String msg = in.readLine();
             comObj = mapper.readValue(msg, Communication.class);
         } catch (IOException e) {
-            System.out.println(e);
+            System.err.println(e);
         }
+
+        System.out.println(comObj);
 
         try {
             ViewController vc = new ViewController();

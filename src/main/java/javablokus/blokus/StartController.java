@@ -1,13 +1,8 @@
 package javablokus.blokus;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.io.IOException;
 
 public class StartController {
 
@@ -22,9 +17,9 @@ public class StartController {
 
         // TODO: playernameが空白ならば入力を促す
 
-        starttext.setText("Waiting...");
+        starttext.setText("Connecting...");
 
-        BlokusClient bc = new BlokusClient(starttext.getText());
+        BlokusClient bc = new BlokusClient(playername.getText());
         bc.connectToServer();
     }
 
