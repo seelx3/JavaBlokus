@@ -3,12 +3,19 @@ package javablokus.blokus;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.util.Duration;
 
 public class BlokusClient {
     final int PORT = 8090;
@@ -22,6 +29,8 @@ public class BlokusClient {
     Communication comObj;
 
     ObjectMapper mapper;
+
+    ViewController vc;
 
     BlokusClient (String pn) {
         setPlayerName(pn);
@@ -44,6 +53,7 @@ public class BlokusClient {
                 true);                      // 送信バッファ設定
         mapper = new ObjectMapper();
 
+        vc = new ViewController();
     }
 
     public void setPlayerName(String name) {
@@ -67,31 +77,41 @@ public class BlokusClient {
 
         System.out.println("wait for start");
 
-        try {
-            String msg = in.readLine();
-            comObj = mapper.readValue(msg, Communication.class);
-        } catch (IOException e) {
-            System.err.println(e);
-        }
+        // Communicationオブジェクトの情報をサーバーから取得をするタスク
+        // 取得後にplay-viewに画面遷移
+        Task<Void> waitFor2ndPlayer = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                while(!in.ready()) { ; }
+                Platform.runLater(() -> {
+                    try {
+                        String msg = in.readLine();
+                        comObj = mapper.readValue(msg, Communication.class);
+                    } catch (IOException e) {
+                        System.err.println(e);
+                    }
+                    System.out.println(comObj);
+                    try {
+                        vc.changeView("play-view.fxml");
+                    } catch (IOException e) {
+                        System.err.println(e);
+                    }
+                });
+                return null;
+            }
+        };
 
-        System.out.println(comObj);
-
-        try {
-            ViewController vc = new ViewController();
-            vc.changeView("play-view.fxml");
-        } catch (IOException e) {
-            System.err.println(e);
-        }
+        ExecutorService ex = Executors.newSingleThreadExecutor();
+        ex.execute(waitFor2ndPlayer);
+        ex.shutdown();
     }
 
     void connectToServer() {
         try{
-//            setPlayerName();
             Init();
         } catch (IOException e) {
             System.err.println(e);
             System.out.println("Connection Failed!");
-            // TODO: 接続やりなおし
         }
 
         // 名前をサーバーに送信
@@ -112,3 +132,4 @@ public class BlokusClient {
         socket.close();
     }
 }
+

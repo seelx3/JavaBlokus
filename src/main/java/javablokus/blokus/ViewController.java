@@ -11,7 +11,7 @@ public class ViewController {
     final int v1 = 600;
     public void changeView(String fxmlPath) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource(fxmlPath));
-        Scene scene = new Scene(parent, 800, 600);
+        Scene scene = new Scene(parent, v, v1);
         JavaBlokus.setView(scene);
         System.out.println("Change View to " + fxmlPath);
     }

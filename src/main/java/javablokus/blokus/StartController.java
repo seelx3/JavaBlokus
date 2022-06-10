@@ -15,7 +15,10 @@ public class StartController {
     @FXML
     protected void onStartButtonClick() {
 
-        // TODO: playernameが空白ならば入力を促す
+        if(playername.getText().equals("")){
+            starttext.setText("Please enter your name!");
+            return;
+        }
 
         starttext.setText("Connecting...");
 
