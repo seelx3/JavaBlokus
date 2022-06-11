@@ -1,8 +1,11 @@
 package javablokus.blokus;
 
 public class PieceB extends AbstractPiece {
+
     PieceB() {
-        super(new int[][]{
+        super(
+                1,
+                new int[][]{
                 {0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 3, 2, 3, 0, 0},

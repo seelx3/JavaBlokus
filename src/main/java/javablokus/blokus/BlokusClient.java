@@ -14,6 +14,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -33,6 +34,8 @@ public class BlokusClient {
 
     static ObjectMapper mapper;
 
+    static Scene currentScene;
+    static Node fxmlnode;
     static Group asgnedBlocks;
     private static final double BLOCK_HEIGHT = 30.44;
     private static final double BLOCK_WIDTH = 30;
@@ -162,15 +165,18 @@ public class BlokusClient {
                         Group root = new Group();
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("play-view.fxml"));
                         try {
-                            root.getChildren().add(fxmlLoader.load());
+                            fxmlnode = fxmlLoader.load();
                         } catch (Exception e) {
                             System.err.println(e);
                         }
+                        root.getChildren().add(fxmlnode);
                         PlayController pc = fxmlLoader.getController(); // 使用中のコントローラーを取得
                         pc.playerName.setText(comObj.players[comObj.turn]);
+                        if(comObj.turn != playerId) clearButton(pc);
+                        else setButtonVisible(pc);
                         root.getChildren().add(asgnedBlocks);
-                        Scene scn = new Scene(root, 800, 600);
-                        JavaBlokus.setView(scn);
+                        currentScene = new Scene(root, 800, 600);
+                        JavaBlokus.setView(currentScene);
 
                     });
                 }
@@ -226,5 +232,62 @@ public class BlokusClient {
                 }
             }
         }
+    }
+
+    static void setButtonVisible(PlayController pc) {
+        if(comObj.usedPiece[playerId][0])  pc.AButton.setVisible(false);
+        if(comObj.usedPiece[playerId][1])  pc.BButton.setVisible(false);
+        if(comObj.usedPiece[playerId][2])  pc.CButton.setVisible(false);
+        if(comObj.usedPiece[playerId][3])  pc.DButton.setVisible(false);
+        if(comObj.usedPiece[playerId][4])  pc.EButton.setVisible(false);
+        if(comObj.usedPiece[playerId][5])  pc.FButton.setVisible(false);
+        if(comObj.usedPiece[playerId][6])  pc.GButton.setVisible(false);
+        if(comObj.usedPiece[playerId][7])  pc.HButton.setVisible(false);
+        if(comObj.usedPiece[playerId][8])  pc.IButton.setVisible(false);
+        if(comObj.usedPiece[playerId][9])  pc.JButton.setVisible(false);
+        if(comObj.usedPiece[playerId][10]) pc.KButton.setVisible(false);
+        if(comObj.usedPiece[playerId][11]) pc.LButton.setVisible(false);
+        if(comObj.usedPiece[playerId][12]) pc.MButton.setVisible(false);
+        if(comObj.usedPiece[playerId][13]) pc.NButton.setVisible(false);
+        if(comObj.usedPiece[playerId][14]) pc.OButton.setVisible(false);
+        if(comObj.usedPiece[playerId][15]) pc.PButton.setVisible(false);
+        if(comObj.usedPiece[playerId][16]) pc.QButton.setVisible(false);
+        if(comObj.usedPiece[playerId][17]) pc.RButton.setVisible(false);
+        if(comObj.usedPiece[playerId][18]) pc.SButton.setVisible(false);
+        if(comObj.usedPiece[playerId][19]) pc.TButton.setVisible(false);
+        if(comObj.usedPiece[playerId][20]) pc.UButton.setVisible(false);
+    }
+
+    static void clearButton(PlayController pc){
+        pc.AButton.setVisible(false);
+        pc.BButton.setVisible(false);
+        pc.CButton.setVisible(false);
+        pc.DButton.setVisible(false);
+        pc.EButton.setVisible(false);
+        pc.FButton.setVisible(false);
+        pc.GButton.setVisible(false);
+        pc.HButton.setVisible(false);
+        pc.IButton.setVisible(false);
+        pc.JButton.setVisible(false);
+        pc.KButton.setVisible(false);
+        pc.LButton.setVisible(false);
+        pc.MButton.setVisible(false);
+        pc.NButton.setVisible(false);
+        pc.OButton.setVisible(false);
+        pc.PButton.setVisible(false);
+        pc.QButton.setVisible(false);
+        pc.RButton.setVisible(false);
+        pc.SButton.setVisible(false);
+        pc.TButton.setVisible(false);
+        pc.UButton.setVisible(false);
+
+        pc.GiveUpButton.setVisible(false);
+        pc.ConfirmButton.setVisible(false);
+        pc.UpButton.setVisible(false);
+        pc.DownButton.setVisible(false);
+        pc.RightButton.setVisible(false);
+        pc.LeftButton.setVisible(false);
+        pc.SpinButton.setVisible(false);
+        pc.ReverseButton.setVisible(false);
     }
 }

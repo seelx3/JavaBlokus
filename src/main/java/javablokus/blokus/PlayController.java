@@ -32,50 +32,59 @@ public class PlayController {
     static AbstractPiece currentPiece;
     static Group root, blocks;
 
-    @FXML public  Label playerName; // ターンのプレイヤー
+    @FXML public Label playerName; // ターンのプレイヤー
+    @FXML public Button GiveUpButton;
+    @FXML public Button ConfirmButton;
+    @FXML public Button UpButton;
+    @FXML public Button DownButton;
+    @FXML public Button RightButton;
+    @FXML public Button LeftButton;
+    @FXML public Button SpinButton;
+    @FXML public Button ReverseButton;
 
-    @FXML
-    protected void onAButtonClick(ActionEvent ev) { currentPiece = new PieceA(); setPos(); }
-    @FXML
-    protected void onBButtonClick(ActionEvent ev) { currentPiece = new PieceB(); setPos(); }
-    @FXML
-    protected void onCButtonClick(ActionEvent ev) { currentPiece = new PieceC(); setPos(); }
-    @FXML
-    protected void onDButtonClick(ActionEvent ev) { currentPiece = new PieceD(); setPos(); }
-    @FXML
-    protected void onEButtonClick(ActionEvent ev) { currentPiece = new PieceE(); setPos(); }
-    @FXML
-    protected void onFButtonClick(ActionEvent ev) { currentPiece = new PieceF(); setPos(); }
-    @FXML
-    protected void onGButtonClick(ActionEvent ev) { currentPiece = new PieceG(); setPos(); }
-    @FXML
-    protected void onHButtonClick(ActionEvent ev) { currentPiece = new PieceH(); setPos(); }
-    @FXML
-    protected void onIButtonClick(ActionEvent ev) { currentPiece = new PieceI(); setPos(); }
-    @FXML
-    protected void onJButtonClick(ActionEvent ev) { currentPiece = new PieceJ(); setPos(); }
-    @FXML
-    protected void onKButtonClick(ActionEvent ev) { currentPiece = new PieceK(); setPos(); }
-    @FXML
-    protected void onLButtonClick(ActionEvent ev) { currentPiece = new PieceL(); setPos(); }
-    @FXML
-    protected void onMButtonClick(ActionEvent ev) { currentPiece = new PieceM(); setPos(); }
-    @FXML
-    protected void onNButtonClick(ActionEvent ev) { currentPiece = new PieceN(); setPos(); }
-    @FXML
-    protected void onOButtonClick(ActionEvent ev) { currentPiece = new PieceO(); setPos(); }
-    @FXML
-    protected void onPButtonClick(ActionEvent ev) { currentPiece = new PieceP(); setPos(); }
-    @FXML
-    protected void onQButtonClick(ActionEvent ev) { currentPiece = new PieceQ(); setPos(); }
-    @FXML
-    protected void onRButtonClick(ActionEvent ev) { currentPiece = new PieceR(); setPos(); }
-    @FXML
-    protected void onSButtonClick(ActionEvent ev) { currentPiece = new PieceS(); setPos(); }
-    @FXML
-    protected void onTButtonClick(ActionEvent ev) { currentPiece = new PieceT(); setPos(); }
-    @FXML
-    protected void onUButtonClick(ActionEvent ev) { currentPiece = new PieceU(); setPos(); }
+    @FXML Button AButton;
+    @FXML Button BButton;
+    @FXML Button CButton;
+    @FXML Button DButton;
+    @FXML Button EButton;
+    @FXML Button FButton;
+    @FXML Button GButton;
+    @FXML Button HButton;
+    @FXML Button IButton;
+    @FXML Button JButton;
+    @FXML Button KButton;
+    @FXML Button LButton;
+    @FXML Button MButton;
+    @FXML Button NButton;
+    @FXML Button OButton;
+    @FXML Button PButton;
+    @FXML Button QButton;
+    @FXML Button RButton;
+    @FXML Button SButton;
+    @FXML Button TButton;
+    @FXML Button UButton;
+
+    @FXML  protected void onAButtonClick(ActionEvent ev) { currentPiece = new PieceA(); setPos(); }
+    @FXML  protected void onBButtonClick(ActionEvent ev) { currentPiece = new PieceB(); setPos(); }
+    @FXML  protected void onCButtonClick(ActionEvent ev) { currentPiece = new PieceC(); setPos(); }
+    @FXML  protected void onDButtonClick(ActionEvent ev) { currentPiece = new PieceD(); setPos(); }
+    @FXML  protected void onEButtonClick(ActionEvent ev) { currentPiece = new PieceE(); setPos(); }
+    @FXML  protected void onFButtonClick(ActionEvent ev) { currentPiece = new PieceF(); setPos(); }
+    @FXML  protected void onGButtonClick(ActionEvent ev) { currentPiece = new PieceG(); setPos(); }
+    @FXML  protected void onHButtonClick(ActionEvent ev) { currentPiece = new PieceH(); setPos(); }
+    @FXML  protected void onIButtonClick(ActionEvent ev) { currentPiece = new PieceI(); setPos(); }
+    @FXML  protected void onJButtonClick(ActionEvent ev) { currentPiece = new PieceJ(); setPos(); }
+    @FXML  protected void onKButtonClick(ActionEvent ev) { currentPiece = new PieceK(); setPos(); }
+    @FXML  protected void onLButtonClick(ActionEvent ev) { currentPiece = new PieceL(); setPos(); }
+    @FXML  protected void onMButtonClick(ActionEvent ev) { currentPiece = new PieceM(); setPos(); }
+    @FXML  protected void onNButtonClick(ActionEvent ev) { currentPiece = new PieceN(); setPos(); }
+    @FXML  protected void onOButtonClick(ActionEvent ev) { currentPiece = new PieceO(); setPos(); }
+    @FXML  protected void onPButtonClick(ActionEvent ev) { currentPiece = new PieceP(); setPos(); }
+    @FXML  protected void onQButtonClick(ActionEvent ev) { currentPiece = new PieceQ(); setPos(); }
+    @FXML  protected void onRButtonClick(ActionEvent ev) { currentPiece = new PieceR(); setPos(); }
+    @FXML  protected void onSButtonClick(ActionEvent ev) { currentPiece = new PieceS(); setPos(); }
+    @FXML  protected void onTButtonClick(ActionEvent ev) { currentPiece = new PieceT(); setPos(); }
+    @FXML  protected void onUButtonClick(ActionEvent ev) { currentPiece = new PieceU(); setPos(); }
 
     @FXML
     protected void DownClick(ActionEvent ev) {
@@ -122,26 +131,17 @@ public class PlayController {
     void onConfirmClick(ActionEvent ev) {
         // TODO: placableかどうかの判定
 
-        // TODO: comObjを更新
         updateComObj();
-
-        // TODO: サーバーに送信
         BlokusClient.sendComObj();
     }
 
     void setPos() {
-        Xpos = -3;
-        Ypos = -3;
+        Xpos = 4;
+        Ypos = 4;
 
         root = new Group();
         blocks = new Group();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("play-view.fxml"));
-        try {
-            root.getChildren().add(fxmlLoader.load());
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-        PlayController pc = fxmlLoader.getController();
+        root.getChildren().add(BlokusClient.fxmlnode);
 
         int[][] piece = currentPiece.getPiece();
 
@@ -175,15 +175,7 @@ public class PlayController {
         }
         root = new Group();
         blocks = new Group();
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("play-view.fxml"));
-
-        try {
-            int[][] piece = currentPiece.getPiece();
-            root.getChildren().add(fxmlLoader.load());
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        root.getChildren().add(BlokusClient.fxmlnode);
 
         int[][] piece = currentPiece.getPiece();
 
@@ -202,10 +194,12 @@ public class PlayController {
         root.getChildren().add(BlokusClient.asgnedBlocks);
         root.getChildren().add(blocks);
         Scene scn = new Scene(root, 800, 600);
+        playerName.setText(BlokusClient.comObj.players[BlokusClient.comObj.turn]);
         stg.setScene(scn);
     }
 
     static void updateComObj() {
+        // boardの更新
         int[][] piece = currentPiece.getPiece();
         System.err.println("Xpos: " + Xpos + ", Ypos: " + Ypos);
         for(int i = 0; i < PIECE_SIZE; i++) {
@@ -223,5 +217,8 @@ public class PlayController {
                 }
             }
         }
+
+        // usedPieceの更新
+        BlokusClient.comObj.usedPiece[BlokusClient.playerId][currentPiece.id] = true;
     }
 }

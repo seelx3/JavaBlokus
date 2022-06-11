@@ -2,9 +2,11 @@ package javablokus.blokus;
 
 abstract public class AbstractPiece {
     private static final int PIECE_SIZE = 7;
+    public int id;
     public int[][] piece;
 
-    AbstractPiece(int[][] pce) {
+    AbstractPiece(int pceid, int[][] pce) {
+        id = pceid;
         piece = pce;
     }
 
