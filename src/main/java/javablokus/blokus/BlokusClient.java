@@ -141,7 +141,7 @@ public class BlokusClient {
                             System.err.println(e);
                         }
                         PlayController pc = fxmlLoader.getController(); // 使用中のコントローラーを取得
-                        pc.playerName.setText("aaa");
+                        pc.playerName.setText(comObj.players[comObj.turn % 2]);
                         Scene scn = new Scene(root, 800, 600);
                         JavaBlokus.setView(scn);
 

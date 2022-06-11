@@ -14,8 +14,12 @@ public class Communication {
 
     @Override
     public String toString() {
-        return "{\nplayers: " + Arrays.deepToString(players) + "\nturn: " + turn + "\nboard: " + Arrays.deepToString(board) +
-                "\ngiveup: " + giveup + "\nfinished: " + finished + "\nwhowon: " + whowon + "\navailablePieces: " +
+        String boardStat = "";
+        for (int i = 0; i < 14 + 6; i++) {
+            boardStat += Arrays.toString(board[i]) + "\n";
+        }
+        return "{\nplayers: " + Arrays.deepToString(players) + "\nturn: " + turn + "\nboard:\n" + boardStat +
+                "giveup: " + giveup + "\nfinished: " + finished + "\nwhowon: " + whowon + "\navailablePieces: " +
                 Arrays.deepToString(availablePieces) + "\n}\n";
     }
 }
