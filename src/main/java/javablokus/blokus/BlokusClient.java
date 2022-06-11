@@ -16,6 +16,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class BlokusClient {
@@ -23,13 +25,23 @@ public class BlokusClient {
     InetAddress addr;
     Socket socket;
     BufferedReader in;
-    PrintWriter out;
-    int playerId; // 0 or 1
+    static PrintWriter out;
+    static int playerId; // 0 or 1　/ 共有
     private String playerName;
 
-    Communication comObj;
+    static Communication comObj; // 共有
 
-    ObjectMapper mapper;
+    static ObjectMapper mapper;
+
+    static Group asgnedBlocks;
+    private static final double BLOCK_HEIGHT = 30.44;
+    private static final double BLOCK_WIDTH = 30;
+    private static final int COL = 14;
+    private static final int ROW = 14;
+    private static final int LX = 187;
+    private static final int LY = 53;
+    private static final int BLUE = 2;
+    private static final int RED = 3;
 
     BlokusClient (String pn) {
         setPlayerName(pn);
@@ -55,6 +67,7 @@ public class BlokusClient {
         mapper = new ObjectMapper();
 
         pc = new PlayController();
+        asgnedBlocks = new Group();
     }
 
     public void setPlayerName(String name) {
@@ -65,6 +78,14 @@ public class BlokusClient {
     public void sendPlayerName() {
         out.println(playerName);
         System.out.println("Send player name : " + playerName);
+    }
+
+    public static void sendComObj() {
+        try {
+            out.println(mapper.writeValueAsString(comObj));
+        } catch (JsonProcessingException jpe) {
+            System.err.println(jpe);
+        }
     }
 
     public void getPlayerId() throws IOException {
@@ -132,7 +153,12 @@ public class BlokusClient {
                         }
                         System.out.println(comObj);
 
-                        // TODO: playerName(誰のターン)や盤面を更新
+                        // TODO: giveUp = true のときの処理
+
+                        // TODO: finished = true のときの処理
+
+                        // TODO: play-viewの更新
+                        setAsgnedBlocks();
                         Group root = new Group();
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("play-view.fxml"));
                         try {
@@ -141,7 +167,8 @@ public class BlokusClient {
                             System.err.println(e);
                         }
                         PlayController pc = fxmlLoader.getController(); // 使用中のコントローラーを取得
-                        pc.playerName.setText(comObj.players[comObj.turn % 2]);
+                        pc.playerName.setText(comObj.players[comObj.turn]);
+                        root.getChildren().add(asgnedBlocks);
                         Scene scn = new Scene(root, 800, 600);
                         JavaBlokus.setView(scn);
 
@@ -182,5 +209,22 @@ public class BlokusClient {
     void disconnect() throws IOException {
         socket.close();
     }
-}
 
+    static void setAsgnedBlocks() {
+        asgnedBlocks.getChildren().removeAll();
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                Rectangle r = new Rectangle(LX + j * BLOCK_WIDTH, LY + i * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                if(comObj.board[i][j] == BLUE) {
+                    r.setFill(Color.BLUE);
+                    r.setStroke(Color.BLACK);
+                    asgnedBlocks.getChildren().add(r);
+                }else if(comObj.board[i][j] == RED) {
+                    r.setFill(Color.RED);
+                    r.setStroke(Color.BLACK);
+                    asgnedBlocks.getChildren().add(r);
+                }
+            }
+        }
+    }
+}

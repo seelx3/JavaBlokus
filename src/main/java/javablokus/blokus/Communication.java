@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Communication {
     public String[] players;
-    public int turn;
+    public int turn; // 0 or 1
     public int[][] board;
     public boolean giveup;
     public boolean finished;
@@ -15,7 +15,7 @@ public class Communication {
     @Override
     public String toString() {
         String boardStat = "";
-        for (int i = 0; i < 14 + 6; i++) {
+        for (int i = 0; i < 14; i++) {
             boardStat += Arrays.toString(board[i]) + "\n";
         }
         return "{\nplayers: " + Arrays.deepToString(players) + "\nturn: " + turn + "\nboard:\n" + boardStat +

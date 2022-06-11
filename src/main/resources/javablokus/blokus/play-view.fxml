@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javablokus.blokus.PlayController">
    <children>
-       <GridPane gridLinesVisible="true" layoutX="187.0" layoutY="53.0" prefHeight="425.0" prefWidth="420.0">
+       <GridPane gridLinesVisible="true" layoutX="187.0" layoutY="53.0" prefHeight="420.0" prefWidth="420.0">
            <columnConstraints>
                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -64,8 +64,8 @@
        <Button layoutX="500.0" layoutY="541.0" mnemonicParsing="false" onAction="#onSButtonClick" prefHeight="40.0" prefWidth="40.0" text="S" />
        <Button layoutX="540.0" layoutY="541.0" mnemonicParsing="false" onAction="#onTButtonClick" prefHeight="40.0" prefWidth="40.0" text="T" />
        <Button layoutX="580.0" layoutY="541.0" mnemonicParsing="false" onAction="#onUButtonClick" prefHeight="40.0" prefWidth="40.0" text="U" />
-       <Button layoutX="653.0" layoutY="66.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="GiveUp" />
-       <Button layoutX="647.0" layoutY="541.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="67.0" text="Confirm" />
+       <Button layoutX="653.0" layoutY="66.0" mnemonicParsing="false"  onAction="#onGiveUpClick" prefHeight="40.0" prefWidth="55.0" text="GiveUp" />
+       <Button layoutX="647.0" layoutY="541.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="40.0" prefWidth="67.0" text="Confirm" />
        <Button layoutX="652.0" layoutY="409.0" mnemonicParsing="false" onAction="#ReverseClick" prefHeight="40.0" prefWidth="58.0" text="Reverse" />
        <Button layoutX="652.0" layoutY="355.0" mnemonicParsing="false" onAction="#SpinClick" prefHeight="40.0" prefWidth="58.0" text="Spin" />
        <Button layoutX="661.0" layoutY="286.0" mnemonicParsing="false" onAction="#DownClick" prefHeight="40.0" prefWidth="40.0" text="D" />

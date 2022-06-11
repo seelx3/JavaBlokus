@@ -23,12 +23,16 @@ public class PlayController {
     private static final int PIECE_SIZE = 7;
     private static final int LX = 187;
     private static final int LY = 53;
+    private static final Color col[] = {Color.BLUE, Color.RED};
+    private static final int BLUE = 2;
+    private static final int RED = 3;
 
     static int Xpos;
     static int Ypos;
     static AbstractPiece currentPiece;
     static Group root, blocks;
-    @FXML public  Label playerName;
+
+    @FXML public  Label playerName; // ターンのプレイヤー
 
     @FXML
     protected void onAButtonClick(ActionEvent ev) { currentPiece = new PieceA(); setPos(); }
@@ -109,9 +113,25 @@ public class PlayController {
         changePos();
     }
 
+    @FXML
+    void onGiveUpClick(ActionEvent ev) {
+
+    }
+
+    @FXML
+    void onConfirmClick(ActionEvent ev) {
+        // TODO: placableかどうかの判定
+
+        // TODO: comObjを更新
+        updateComObj();
+
+        // TODO: サーバーに送信
+        BlokusClient.sendComObj();
+    }
+
     void setPos() {
-        Xpos = 4;
-        Ypos = 4;
+        Xpos = -3;
+        Ypos = -3;
 
         root = new Group();
         blocks = new Group();
@@ -131,16 +151,17 @@ public class PlayController {
 
         for(int i=0;i<PIECE_SIZE;i++) {
             for(int j=0;j<PIECE_SIZE;j++) {
-                Rectangle r = new Rectangle(LX + (Xpos+i) * BLOCK_WIDTH , LY + (Ypos+j) * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                Rectangle r = new Rectangle(LX + (Xpos+j) * BLOCK_WIDTH , LY + (Ypos+i) * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
 
-                if(piece[j][i] == 1) {
-                    r.setFill(Color.BLUE);
+                if(piece[i][j] == 1) {
+                    r.setFill(col[BlokusClient.playerId]);
                     r.setStroke(Color.BLACK);
                     blocks.getChildren().add(r);
                 }
             }
         }
 
+        root.getChildren().add(BlokusClient.asgnedBlocks);
         root.getChildren().add(blocks);
         Scene scn = new Scene(root, 800, 600);
         stg.setScene(scn);
@@ -168,19 +189,39 @@ public class PlayController {
 
         for(int i=0;i<PIECE_SIZE;i++) {
             for(int j=0;j<PIECE_SIZE;j++) {
-                Rectangle r = new Rectangle(LX + (Xpos+i) * BLOCK_WIDTH , LY + (Ypos+j) * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                Rectangle r = new Rectangle(LX + (Xpos+j) * BLOCK_WIDTH , LY + (Ypos+i) * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
 
-                if(piece[j][i] == 1) {
-                    r.setFill(Color.BLUE);
+                if(piece[i][j] == 1) {
+                    r.setFill(col[BlokusClient.playerId]);
                     r.setStroke(Color.BLACK);
                     blocks.getChildren().add(r);
                 }
             }
         }
 
+        root.getChildren().add(BlokusClient.asgnedBlocks);
         root.getChildren().add(blocks);
         Scene scn = new Scene(root, 800, 600);
         stg.setScene(scn);
     }
 
+    static void updateComObj() {
+        int[][] piece = currentPiece.getPiece();
+        System.err.println("Xpos: " + Xpos + ", Ypos: " + Ypos);
+        for(int i = 0; i < PIECE_SIZE; i++) {
+            for(int j = 0; j < PIECE_SIZE; j++) {
+                System.err.print(piece[i][j] + " ");
+            }
+            System.err.println();
+        }
+
+        for(int i=0;i<PIECE_SIZE;i++) {
+            for(int j=0;j<PIECE_SIZE;j++) {
+                if(Ypos+i >= 0 && Ypos < 14 && Xpos+j >= 0 && Xpos+j < 14 && piece[i][j] == 1) {
+                    if(BlokusClient.playerId == 0) BlokusClient.comObj.board[Ypos+i][Xpos+j] = BLUE;
+                    else if(BlokusClient.playerId == 1) BlokusClient.comObj.board[Ypos+i][Xpos+j] = RED;
+                }
+            }
+        }
+    }
 }
