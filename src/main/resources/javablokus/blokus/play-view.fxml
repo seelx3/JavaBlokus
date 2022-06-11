@@ -45,9 +45,9 @@
             <Insets />
          </opaqueInsets>
       </GridPane>
-      <Button layoutX="200.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="A" />
-       <Button layoutX="240.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="B" />
-       <Button layoutX="280.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="C" />
+      <Button fx:id="aButton" layoutX="200.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="A" />
+       <Button fx:id="bButton" layoutX="240.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="B" />
+       <Button fx:id="cButton" layoutX="280.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="C" />
        <Button layoutX="320.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="D" />
        <Button layoutX="360.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="E" />
        <Button layoutX="400.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="F" />
@@ -73,7 +73,7 @@
        <Button layoutX="661.0" layoutY="206.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="U" />
        <Button layoutX="621.0" layoutY="246.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="L" />
        <Button layoutX="701.0" layoutY="246.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="R" />
-      <Label layoutX="366.0" layoutY="30.0" text="Player Name" />
+      <Label fx:id="playerName" layoutX="366.0" layoutY="30.0" text="Player Name" />
       <Label layoutX="466.0" layoutY="30.0" text="'s turn" />
    </children>
 </AnchorPane>

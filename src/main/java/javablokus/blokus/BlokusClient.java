@@ -13,6 +13,7 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.util.Duration;
@@ -23,18 +24,18 @@ public class BlokusClient {
     Socket socket;
     BufferedReader in;
     PrintWriter out;
-    int playerId;
+    int playerId; // 0 or 1
     private String playerName;
 
     Communication comObj;
 
     ObjectMapper mapper;
 
-    ViewController vc;
-
     BlokusClient (String pn) {
         setPlayerName(pn);
     }
+
+    PlayController pc;
 
     public void Init() throws IOException {
         addr = InetAddress.getByName("localhost");
@@ -53,7 +54,7 @@ public class BlokusClient {
                 true);                      // 送信バッファ設定
         mapper = new ObjectMapper();
 
-        vc = new ViewController();
+        pc = new PlayController();
     }
 
     public void setPlayerName(String name) {
@@ -86,16 +87,11 @@ public class BlokusClient {
                 Platform.runLater(() -> {
                     try {
                         String msg = in.readLine();
-                        comObj = mapper.readValue(msg, Communication.class);
+                        System.out.println(msg);
                     } catch (IOException e) {
                         System.err.println(e);
                     }
-                    System.out.println(comObj);
-                    try {
-                        vc.changeView("play-view.fxml");
-                    } catch (IOException e) {
-                        System.err.println(e);
-                    }
+                    waitForNextTurn();
                 });
                 return null;
             }
@@ -103,6 +99,61 @@ public class BlokusClient {
 
         ExecutorService ex = Executors.newSingleThreadExecutor();
         ex.execute(waitFor2ndPlayer);
+        ex.shutdown();
+    }
+
+    public void waitForNextTurn() {
+        // turn % 2 == id ならばクライアントはturnを+1してComObjをサーバに送信
+        // サーバからComObjを受信
+
+        System.out.println("Wait for Next Turn");
+        Task<Void> waitNext = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                while(true) {
+                    while(!in.ready()) { ; }
+                    String msg = null;
+                    try {
+                        msg = in.readLine();
+                    } catch (IOException e) {
+                        System.err.println(e);
+                    }
+                    if(msg == null) {
+                        System.out.println();
+                        break;
+                    }
+                    final String objmsg = msg;
+
+                    Platform.runLater(() -> {
+                        try {
+                            comObj = mapper.readValue(objmsg, Communication.class); // comObjの更新
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                        System.out.println(comObj);
+
+                        // TODO: playerName(誰のターン)や盤面を更新
+                        Group root = new Group();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("play-view.fxml"));
+                        try {
+                            root.getChildren().add(fxmlLoader.load());
+                        } catch (Exception e) {
+                            System.err.println(e);
+                        }
+                        PlayController pc = fxmlLoader.getController(); // 使用中のコントローラーを取得
+                        pc.playerName.setText("aaa");
+                        Scene scn = new Scene(root, 800, 600);
+                        JavaBlokus.setView(scn);
+
+                    });
+                }
+
+                return null;
+            }
+        };
+
+        ExecutorService ex = Executors.newSingleThreadExecutor();
+        ex.execute(waitNext);
         ex.shutdown();
     }
 
