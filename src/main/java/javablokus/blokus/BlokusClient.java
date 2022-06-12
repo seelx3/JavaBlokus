@@ -221,20 +221,28 @@ public class BlokusClient {
 
     static void setAsgnedBlocks() {
         asgnedBlocks.getChildren().removeAll();
+        Group block = new Group();
+        Group startPoint = new Group();
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
                 Rectangle r = new Rectangle(LX + j * BLOCK_WIDTH, LY + i * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                if((i==4 && j==4) || (i==9 && j==9)) {
+                    r.setFill(Color.LIGHTGRAY);
+                    startPoint.getChildren().add(r);
+                }
                 if(comObj.board[i][j] == BLUE) {
                     r.setFill(Color.DODGERBLUE);
                     r.setStroke(Color.BLACK);
-                    asgnedBlocks.getChildren().add(r);
+                    block.getChildren().add(r);
                 }else if(comObj.board[i][j] == RED) {
                     r.setFill(Color.DARKRED);
                     r.setStroke(Color.BLACK);
-                    asgnedBlocks.getChildren().add(r);
+                    block.getChildren().add(r);
                 }
             }
         }
+        asgnedBlocks.getChildren().add(startPoint);
+        asgnedBlocks.getChildren().add(block);
     }
 
     static void setButtonVisible(PlayController pc) {

@@ -246,7 +246,7 @@ public class PlayController {
 
     static Boolean isPlaceable(){
         Boolean noDuplicates = true; // 重複するピースが存在しない
-        Boolean existInACorner = false; // 四隅のいずれかを埋める
+        Boolean existInACorner = false; // (4,4),(9,9)のいずれかを埋める
         Boolean touchingAtTheCorner = false; // 同じ色のピースと角で接する
         Boolean noPieceOnEdge = true; // 同じ色のピースと辺で接しない
 
@@ -259,8 +259,8 @@ public class PlayController {
                 if(Y >= 0 && Y < 14 && X >= 0 && X < 14) {
                     // 重複排除
                     if(piece[i][j] == 1 && BlokusClient.comObj.board[Y][X] != 0) noDuplicates = false;
-                    // 四隅 or 角
-                    if(piece[i][j] == 1 && ((Y==0 && X==0) || (Y==0 && X==13) || (Y==13 && X==0) || (Y==13 && X==13))) existInACorner = true;
+                    // (4,4),(9,9) or 角
+                    if(piece[i][j] == 1 && ((Y==4 && X==4) || (Y==9 && X==9))) existInACorner = true;
                     if(piece[i][j] == 3 && BlokusClient.comObj.board[Y][X] == boardNum[BlokusClient.playerId]) touchingAtTheCorner = true;
                     // 辺
                     if(piece[i][j] == 2 && BlokusClient.comObj.board[Y][X] == boardNum[BlokusClient.playerId]) noPieceOnEdge = false;
