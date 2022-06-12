@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +24,8 @@ public class PlayController {
     private static final int PIECE_SIZE = 7;
     private static final int LX = 187;
     private static final int LY = 53;
-    private static final Color col[] = {Color.BLUE, Color.RED};
-    private static final int BLUE = 2;
-    private static final int RED = 3;
+    private static final Color col[] = {Color.DEEPSKYBLUE, Color.CRIMSON};
+    private static final int boardNum[] = {2, 3};
 
     static int Xpos;
     static int Ypos;
@@ -63,6 +63,8 @@ public class PlayController {
     @FXML Button SButton;
     @FXML Button TButton;
     @FXML Button UButton;
+    @FXML Label label1;
+    @FXML Button goToTitle;
 
     @FXML  protected void onAButtonClick(ActionEvent ev) { currentPiece = new PieceA(); setPos(); }
     @FXML  protected void onBButtonClick(ActionEvent ev) { currentPiece = new PieceB(); setPos(); }
@@ -88,24 +90,28 @@ public class PlayController {
 
     @FXML
     protected void DownClick(ActionEvent ev) {
+        if(Ypos >= 10) return;
         Ypos += 1;
         changePos();
     }
 
     @FXML
     protected void UpClick(ActionEvent ev) {
+        if(Ypos <= -3) return;
         Ypos -= 1;
         changePos();
     }
 
     @FXML
     protected void LeftClick(ActionEvent ev) {
+        if(Xpos <= -3) return;
         Xpos -= 1;
         changePos();
     }
 
     @FXML
     protected void RightClick(ActionEvent ev) {
+        if(Xpos >= 10) return;
         Xpos += 1;
         changePos();
     }
@@ -124,15 +130,29 @@ public class PlayController {
 
     @FXML
     void onGiveUpClick(ActionEvent ev) {
-
+        BlokusClient.comObj.giveup = true;
+        BlokusClient.sendComObj();
     }
 
     @FXML
     void onConfirmClick(ActionEvent ev) {
         // TODO: placableかどうかの判定
+        if(!isPlaceable()) return;
 
         updateComObj();
         BlokusClient.sendComObj();
+    }
+
+    @FXML
+    void onGoToTitleButton(ActionEvent ev) {
+        FXMLLoader fxmlLoader = new FXMLLoader(JavaBlokus.class.getResource("start-view.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+            stg.setScene(scene);
+        } catch (IOException ioe) {
+            System.err.println(ioe);
+        }
+        stg.show();
     }
 
     void setPos() {
@@ -202,6 +222,7 @@ public class PlayController {
         // boardの更新
         int[][] piece = currentPiece.getPiece();
         System.err.println("Xpos: " + Xpos + ", Ypos: " + Ypos);
+
         for(int i = 0; i < PIECE_SIZE; i++) {
             for(int j = 0; j < PIECE_SIZE; j++) {
                 System.err.print(piece[i][j] + " ");
@@ -211,14 +232,45 @@ public class PlayController {
 
         for(int i=0;i<PIECE_SIZE;i++) {
             for(int j=0;j<PIECE_SIZE;j++) {
-                if(Ypos+i >= 0 && Ypos < 14 && Xpos+j >= 0 && Xpos+j < 14 && piece[i][j] == 1) {
-                    if(BlokusClient.playerId == 0) BlokusClient.comObj.board[Ypos+i][Xpos+j] = BLUE;
-                    else if(BlokusClient.playerId == 1) BlokusClient.comObj.board[Ypos+i][Xpos+j] = RED;
+                int X = Xpos+j;
+                int Y = Ypos+i;
+                if(Y >= 0 && Y < 14 && X >= 0 && X < 14 && piece[i][j] == 1) {
+                    BlokusClient.comObj.board[Y][X] = boardNum[BlokusClient.playerId];
                 }
             }
         }
 
         // usedPieceの更新
         BlokusClient.comObj.usedPiece[BlokusClient.playerId][currentPiece.id] = true;
+    }
+
+    static Boolean isPlaceable(){
+        Boolean noDuplicates = true; // 重複するピースが存在しない
+        Boolean existInACorner = false; // 四隅のいずれかを埋める
+        Boolean touchingAtTheCorner = false; // 同じ色のピースと角で接する
+        Boolean noPieceOnEdge = true; // 同じ色のピースと辺で接しない
+
+        int[][] piece = currentPiece.getPiece();
+
+        for(int i=0;i<PIECE_SIZE;i++) {
+            for(int j=0;j<PIECE_SIZE;j++) {
+                int X = Xpos+j;
+                int Y = Ypos+i;
+                if(Y >= 0 && Y < 14 && X >= 0 && X < 14) {
+                    // 重複排除
+                    if(piece[i][j] == 1 && BlokusClient.comObj.board[Y][X] != 0) noDuplicates = false;
+                    // 四隅 or 角
+                    if(piece[i][j] == 1 && ((Y==0 && X==0) || (Y==0 && X==13) || (Y==13 && X==0) || (Y==13 && X==13))) existInACorner = true;
+                    if(piece[i][j] == 3 && BlokusClient.comObj.board[Y][X] == boardNum[BlokusClient.playerId]) touchingAtTheCorner = true;
+                    // 辺
+                    if(piece[i][j] == 2 && BlokusClient.comObj.board[Y][X] == boardNum[BlokusClient.playerId]) noPieceOnEdge = false;
+                } else {
+                    if(piece[i][j] == 1) noDuplicates = false;
+                }
+            }
+        }
+
+        if(noDuplicates && (existInACorner || touchingAtTheCorner) && noPieceOnEdge) return true;
+        else return false;
     }
 }

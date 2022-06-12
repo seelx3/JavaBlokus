@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class StartController {
+    static BlokusClient bc;
 
     @FXML
     private TextField playername;
@@ -27,7 +28,7 @@ public class StartController {
         starttext.setText("Connecting...");
         startButton.setVisible(false);
 
-        BlokusClient bc = new BlokusClient(playername.getText());
+        bc = new BlokusClient(playername.getText());
         bc.connectToServer();
     }
 

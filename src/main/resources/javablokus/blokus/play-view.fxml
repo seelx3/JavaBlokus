@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javablokus.blokus.PlayController">
@@ -43,36 +44,212 @@
                <Insets />
            </opaqueInsets>
        </GridPane>
-       <Button fx:id="AButton" layoutX="180.0" layoutY="501.0" mnemonicParsing="false" onAction="#onAButtonClick" prefHeight="40.0" prefWidth="40.0" text="A" />
-       <Button fx:id="BButton" layoutX="220.0" layoutY="501.0" mnemonicParsing="false" onAction="#onBButtonClick" prefHeight="40.0" prefWidth="40.0" text="B" />
-       <Button fx:id="CButton" layoutX="260.0" layoutY="501.0" mnemonicParsing="false" onAction="#onCButtonClick" prefHeight="40.0" prefWidth="40.0" text="C" />
-       <Button fx:id="DButton" layoutX="300.0" layoutY="501.0" mnemonicParsing="false" onAction="#onDButtonClick" prefHeight="40.0" prefWidth="40.0" text="D" />
-       <Button fx:id="EButton" layoutX="340.0" layoutY="501.0" mnemonicParsing="false" onAction="#onEButtonClick" prefHeight="40.0" prefWidth="40.0" text="E" />
-       <Button fx:id="FButton" layoutX="380.0" layoutY="501.0" mnemonicParsing="false" onAction="#onFButtonClick" prefHeight="40.0" prefWidth="40.0" text="F" />
-       <Button fx:id="GButton" layoutX="420.0" layoutY="501.0" mnemonicParsing="false" onAction="#onGButtonClick" prefHeight="40.0" prefWidth="40.0" text="G" />
-       <Button fx:id="HButton" layoutX="460.0" layoutY="501.0" mnemonicParsing="false" onAction="#onHButtonClick" prefHeight="40.0" prefWidth="40.0" text="H" />
-       <Button fx:id="IButton" layoutX="500.0" layoutY="501.0" mnemonicParsing="false" onAction="#onIButtonClick" prefHeight="40.0" prefWidth="40.0" text="I" />
-       <Button fx:id="JButton" layoutX="540.0" layoutY="501.0" mnemonicParsing="false" onAction="#onJButtonClick" prefHeight="40.0" prefWidth="40.0" text="J" />
-       <Button fx:id="KButton" layoutX="180.0" layoutY="541.0" mnemonicParsing="false" onAction="#onKButtonClick" prefHeight="40.0" prefWidth="40.0" text="K" />
-       <Button fx:id="LButton" layoutX="220.0" layoutY="541.0" mnemonicParsing="false" onAction="#onLButtonClick" prefHeight="40.0" prefWidth="40.0" text="L" />
-       <Button fx:id="MButton" layoutX="260.0" layoutY="541.0" mnemonicParsing="false" onAction="#onMButtonClick" prefHeight="40.0" prefWidth="40.0" text="M" />
-       <Button fx:id="NButton" layoutX="300.0" layoutY="541.0" mnemonicParsing="false" onAction="#onNButtonClick" prefHeight="40.0" prefWidth="40.0" text="N" />
-       <Button fx:id="OButton" layoutX="340.0" layoutY="541.0" mnemonicParsing="false" onAction="#onOButtonClick" prefHeight="40.0" prefWidth="40.0" text="O" />
-       <Button fx:id="PButton" layoutX="380.0" layoutY="541.0" mnemonicParsing="false" onAction="#onPButtonClick" prefHeight="40.0" prefWidth="40.0" text="P" />
-       <Button fx:id="QButton" layoutX="420.0" layoutY="541.0" mnemonicParsing="false" onAction="#onQButtonClick" prefHeight="40.0" prefWidth="40.0" text="Q" />
-       <Button fx:id="RButton" layoutX="460.0" layoutY="541.0" mnemonicParsing="false" onAction="#onRButtonClick" prefHeight="40.0" prefWidth="40.0" text="R" />
-       <Button fx:id="SButton" layoutX="500.0" layoutY="541.0" mnemonicParsing="false" onAction="#onSButtonClick" prefHeight="40.0" prefWidth="40.0" text="S" />
-       <Button fx:id="TButton" layoutX="540.0" layoutY="541.0" mnemonicParsing="false" onAction="#onTButtonClick" prefHeight="40.0" prefWidth="40.0" text="T" />
-       <Button fx:id="UButton" layoutX="580.0" layoutY="541.0" mnemonicParsing="false" onAction="#onUButtonClick" prefHeight="40.0" prefWidth="40.0" text="U" />
-       <Button fx:id="GiveUpButton" layoutX="653.0" layoutY="66.0" mnemonicParsing="false"  onAction="#onGiveUpClick" prefHeight="40.0" prefWidth="55.0" text="GiveUp" />
-       <Button fx:id="ConfirmButton" layoutX="647.0" layoutY="541.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="40.0" prefWidth="67.0" text="Confirm" />
-       <Button fx:id="ReverseButton" layoutX="652.0" layoutY="409.0" mnemonicParsing="false" onAction="#ReverseClick" prefHeight="40.0" prefWidth="58.0" text="Reverse" />
-       <Button fx:id="SpinButton" layoutX="652.0" layoutY="355.0" mnemonicParsing="false" onAction="#SpinClick" prefHeight="40.0" prefWidth="58.0" text="Spin" />
-       <Button fx:id="DownButton" layoutX="661.0" layoutY="286.0" mnemonicParsing="false" onAction="#DownClick" prefHeight="40.0" prefWidth="40.0" text="D" />
-       <Button fx:id="UpButton" layoutX="661.0" layoutY="206.0" mnemonicParsing="false" onAction="#UpClick" prefHeight="40.0" prefWidth="40.0" text="U" />
-       <Button fx:id="LeftButton" layoutX="621.0" layoutY="246.0" mnemonicParsing="false" onAction="#LeftClick" prefHeight="40.0" prefWidth="40.0" text="L" />
-       <Button fx:id="RightButton" layoutX="701.0" layoutY="246.0" mnemonicParsing="false" onAction="#RightClick" prefHeight="40.0" prefWidth="40.0" text="R" />
-       <Label fx:id="playerName" layoutX="366.0" layoutY="30.0" text="Player Name" />
-      <Label layoutX="466.0" layoutY="30.0" text="'s turn" />
+       <Button fx:id="AButton" focusTraversable="false" layoutX="180.0" layoutY="501.0" mnemonicParsing="false" onAction="#onAButtonClick" prefHeight="40.0" prefWidth="40.0">
+         <graphic>
+            <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/pieces/a.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+       <Button fx:id="BButton" focusTraversable="false" layoutX="220.0" layoutY="501.0" mnemonicParsing="false" onAction="#onBButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/b.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="CButton" focusTraversable="false" layoutX="260.0" layoutY="501.0" mnemonicParsing="false" onAction="#onCButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/c.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="DButton" focusTraversable="false" layoutX="300.0" layoutY="501.0" mnemonicParsing="false" onAction="#onDButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/d.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="EButton" focusTraversable="false" layoutX="340.0" layoutY="501.0" mnemonicParsing="false" onAction="#onEButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/e.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="FButton" focusTraversable="false" layoutX="380.0" layoutY="501.0" mnemonicParsing="false" onAction="#onFButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/f.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="GButton" focusTraversable="false" layoutX="420.0" layoutY="501.0" mnemonicParsing="false" onAction="#onGButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/g.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="HButton" focusTraversable="false" layoutX="460.0" layoutY="501.0" mnemonicParsing="false" onAction="#onHButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/h.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="IButton" focusTraversable="false" layoutX="500.0" layoutY="501.0" mnemonicParsing="false" onAction="#onIButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/i.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="JButton" focusTraversable="false" layoutX="540.0" layoutY="501.0" mnemonicParsing="false" onAction="#onJButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/j.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="KButton" focusTraversable="false" layoutX="180.0" layoutY="541.0" mnemonicParsing="false" onAction="#onKButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/k.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="LButton" focusTraversable="false" layoutX="220.0" layoutY="541.0" mnemonicParsing="false" onAction="#onLButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/l.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="MButton" focusTraversable="false" layoutX="260.0" layoutY="541.0" mnemonicParsing="false" onAction="#onMButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/m.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="NButton" focusTraversable="false" layoutX="300.0" layoutY="541.0" mnemonicParsing="false" onAction="#onNButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/n.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="OButton" focusTraversable="false" layoutX="340.0" layoutY="541.0" mnemonicParsing="false" onAction="#onOButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/o.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="PButton" focusTraversable="false" layoutX="380.0" layoutY="541.0" mnemonicParsing="false" onAction="#onPButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/p.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="QButton" focusTraversable="false" layoutX="420.0" layoutY="541.0" mnemonicParsing="false" onAction="#onQButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/q.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="RButton" focusTraversable="false" layoutX="460.0" layoutY="541.0" mnemonicParsing="false" onAction="#onRButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/r.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="SButton" focusTraversable="false" layoutX="500.0" layoutY="541.0" mnemonicParsing="false" onAction="#onSButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/s.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="TButton" focusTraversable="false" layoutX="540.0" layoutY="541.0" mnemonicParsing="false" onAction="#onTButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/t.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="UButton" focusTraversable="false" layoutX="580.0" layoutY="541.0" mnemonicParsing="false" onAction="#onUButtonClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/pieces/u.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="GiveUpButton" focusTraversable="false" layoutX="653.0" layoutY="66.0" mnemonicParsing="false" onAction="#onGiveUpClick" prefHeight="40.0" prefWidth="55.0" text="GiveUp" />
+       <Button fx:id="ConfirmButton" focusTraversable="false" layoutX="647.0" layoutY="541.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="40.0" prefWidth="67.0" text="Confirm" />
+       <Button fx:id="ReverseButton" focusTraversable="false" layoutX="652.0" layoutY="409.0" mnemonicParsing="false" onAction="#ReverseClick" prefHeight="40.0" prefWidth="58.0" text="Reverse" />
+       <Button fx:id="SpinButton" focusTraversable="false" layoutX="652.0" layoutY="355.0" mnemonicParsing="false" onAction="#SpinClick" prefHeight="40.0" prefWidth="58.0" text="Spin" />
+       <Button fx:id="DownButton" focusTraversable="false" layoutX="661.0" layoutY="286.0" mnemonicParsing="false" onAction="#DownClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/direction/down.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="UpButton" focusTraversable="false" layoutX="661.0" layoutY="206.0" mnemonicParsing="false" onAction="#UpClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/direction/up.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="LeftButton" focusTraversable="false" layoutX="621.0" layoutY="246.0" mnemonicParsing="false" onAction="#LeftClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/direction/left.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="RightButton" focusTraversable="false" layoutX="701.0" layoutY="246.0" mnemonicParsing="false" onAction="#RightClick" prefHeight="40.0" prefWidth="40.0" >
+           <graphic>
+               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/direction/right.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Label fx:id="playerName" focusTraversable="false" layoutX="366.0" layoutY="30.0" text="Player Name" />
+      <Label fx:id="label1" layoutX="466.0" layoutY="30.0" text="'s turn" />
+      <Button fx:id="goToTitle" layoutX="314.0" layoutY="528.0" mnemonicParsing="false" onAction="#onGoToTitleButton" prefHeight="1.0" prefWidth="171.0" text="Go to title screen" visible="false" />
    </children>
 </AnchorPane>

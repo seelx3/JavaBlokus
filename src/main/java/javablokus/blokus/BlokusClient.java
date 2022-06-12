@@ -2,24 +2,20 @@ package javablokus.blokus;
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 public class BlokusClient {
     final int PORT = 8090;
@@ -29,12 +25,11 @@ public class BlokusClient {
     static PrintWriter out;
     static int playerId; // 0 or 1　/ 共有
     private String playerName;
-
     static Communication comObj; // 共有
-
     static ObjectMapper mapper;
-
     static Scene currentScene;
+    static Boolean gameFinished;
+
     static Node fxmlnode;
     static Group asgnedBlocks;
     private static final double BLOCK_HEIGHT = 30.44;
@@ -71,6 +66,7 @@ public class BlokusClient {
 
         pc = new PlayController();
         asgnedBlocks = new Group();
+        gameFinished = false;
     }
 
     public void setPlayerName(String name) {
@@ -127,15 +123,15 @@ public class BlokusClient {
     }
 
     public void waitForNextTurn() {
-        // turn % 2 == id ならばクライアントはturnを+1してComObjをサーバに送信
-        // サーバからComObjを受信
 
         System.out.println("Wait for Next Turn");
         Task<Void> waitNext = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 while(true) {
-                    while(!in.ready()) { ; }
+                    while(!in.ready() && !gameFinished) { ; }
+                    if(gameFinished) break;
+
                     String msg = null;
                     try {
                         msg = in.readLine();
@@ -156,11 +152,6 @@ public class BlokusClient {
                         }
                         System.out.println(comObj);
 
-                        // TODO: giveUp = true のときの処理
-
-                        // TODO: finished = true のときの処理
-
-                        // TODO: play-viewの更新
                         setAsgnedBlocks();
                         Group root = new Group();
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("play-view.fxml"));
@@ -171,16 +162,27 @@ public class BlokusClient {
                         }
                         root.getChildren().add(fxmlnode);
                         PlayController pc = fxmlLoader.getController(); // 使用中のコントローラーを取得
+
+                        if(comObj.finished) {
+                            clearButton(pc);
+                            pc.playerName.setText(comObj.whowon);
+                            pc.label1.setText("won!");
+                            pc.goToTitle.setVisible(true);
+                            gameFinished = true;
+                        }
+
                         pc.playerName.setText(comObj.players[comObj.turn]);
                         if(comObj.turn != playerId) clearButton(pc);
                         else setButtonVisible(pc);
+
                         root.getChildren().add(asgnedBlocks);
                         currentScene = new Scene(root, 800, 600);
                         JavaBlokus.setView(currentScene);
 
                     });
-                }
 
+                }
+                System.out.println("exit Task");
                 return null;
             }
         };
@@ -188,6 +190,7 @@ public class BlokusClient {
         ExecutorService ex = Executors.newSingleThreadExecutor();
         ex.execute(waitNext);
         ex.shutdown();
+
     }
 
     void connectToServer() {
@@ -222,11 +225,11 @@ public class BlokusClient {
             for (int j = 0; j < COL; j++) {
                 Rectangle r = new Rectangle(LX + j * BLOCK_WIDTH, LY + i * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
                 if(comObj.board[i][j] == BLUE) {
-                    r.setFill(Color.BLUE);
+                    r.setFill(Color.DODGERBLUE);
                     r.setStroke(Color.BLACK);
                     asgnedBlocks.getChildren().add(r);
                 }else if(comObj.board[i][j] == RED) {
-                    r.setFill(Color.RED);
+                    r.setFill(Color.DARKRED);
                     r.setStroke(Color.BLACK);
                     asgnedBlocks.getChildren().add(r);
                 }
