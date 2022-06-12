@@ -1,5 +1,6 @@
 package javablokus.blokus;
 
+import javablokus.blokus.pieces.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,24 +12,25 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static javablokus.blokus.JavaBlokus.stg;
 
 public class PlayController {
     private static final double BLOCK_HEIGHT = 30.44;
     private static final double BLOCK_WIDTH = 30;
-    private static final int COL = 14;
-    private static final int ROW = 14;
     private static final int PIECE_SIZE = 7;
+    private static final int BOARD_SIZE = 14;
     private static final int LX = 187;
     private static final int LY = 53;
     private static final Color col[] = {Color.DEEPSKYBLUE, Color.CRIMSON};
     private static final int boardNum[] = {2, 3};
+    private static final int SCENE_WIDTH = 800;
+    private static final int SCENE_HEIGHT = 600;
+    private static final int MIN_COR = -3;
+    private static final int MAX_COR = 10;
 
-    static int Xpos;
-    static int Ypos;
+    static int xCor; // ピースの左上のマスのX座標に対応 0 <= xCor <= 13
+    static int yCor; // ピースの左上のマスのY座標に対応 0 <= yCor <= 13
     static AbstractPiece currentPiece;
     static Group root, blocks;
 
@@ -42,6 +44,7 @@ public class PlayController {
     @FXML public Button SpinButton;
     @FXML public Button ReverseButton;
 
+    /* Button 宣言部 */
     @FXML Button AButton;
     @FXML Button BButton;
     @FXML Button CButton;
@@ -66,6 +69,7 @@ public class PlayController {
     @FXML Label label1;
     @FXML Button goToTitle;
 
+    /* Button onAction 宣言部 */
     @FXML  protected void onAButtonClick(ActionEvent ev) { currentPiece = new PieceA(); setPos(); }
     @FXML  protected void onBButtonClick(ActionEvent ev) { currentPiece = new PieceB(); setPos(); }
     @FXML  protected void onCButtonClick(ActionEvent ev) { currentPiece = new PieceC(); setPos(); }
@@ -90,29 +94,29 @@ public class PlayController {
 
     @FXML
     protected void DownClick(ActionEvent ev) {
-        if(Ypos >= 10) return;
-        Ypos += 1;
+        if(yCor >= MAX_COR) return;
+        yCor += 1;
         changePos();
     }
 
     @FXML
     protected void UpClick(ActionEvent ev) {
-        if(Ypos <= -3) return;
-        Ypos -= 1;
+        if(yCor <= MIN_COR) return;
+        yCor -= 1;
         changePos();
     }
 
     @FXML
     protected void LeftClick(ActionEvent ev) {
-        if(Xpos <= -3) return;
-        Xpos -= 1;
+        if(xCor <= MIN_COR) return;
+        xCor -= 1;
         changePos();
     }
 
     @FXML
     protected void RightClick(ActionEvent ev) {
-        if(Xpos >= 10) return;
-        Xpos += 1;
+        if(xCor >= MAX_COR) return;
+        xCor += 1;
         changePos();
     }
 
@@ -136,9 +140,7 @@ public class PlayController {
 
     @FXML
     void onConfirmClick(ActionEvent ev) {
-        // TODO: placableかどうかの判定
         if(!isPlaceable()) return;
-
         updateComObj();
         BlokusClient.sendComObj();
     }
@@ -147,7 +149,7 @@ public class PlayController {
     void onGoToTitleButton(ActionEvent ev) {
         FXMLLoader fxmlLoader = new FXMLLoader(JavaBlokus.class.getResource("start-view.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+            Scene scene = new Scene(fxmlLoader.load(), SCENE_WIDTH, SCENE_HEIGHT);
             stg.setScene(scene);
         } catch (IOException ioe) {
             System.err.println(ioe);
@@ -156,8 +158,9 @@ public class PlayController {
     }
 
     void setPos() {
-        Xpos = 4;
-        Ypos = 4;
+        // ボード上の(7, 7)に対応
+        xCor = 4;
+        yCor = 4;
 
         root = new Group();
         blocks = new Group();
@@ -165,13 +168,9 @@ public class PlayController {
 
         int[][] piece = currentPiece.getPiece();
 
-        // (x, y)にピースを配置
-        // -3 <= x, y <= 10
-        // ピースの中心の座標は(x+3, y+3)
-
         for(int i=0;i<PIECE_SIZE;i++) {
             for(int j=0;j<PIECE_SIZE;j++) {
-                Rectangle r = new Rectangle(LX + (Xpos+j) * BLOCK_WIDTH , LY + (Ypos+i) * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                Rectangle r = new Rectangle(LX + (xCor +j) * BLOCK_WIDTH , LY + (yCor +i) * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
 
                 if(piece[i][j] == 1) {
                     r.setFill(col[BlokusClient.playerId]);
@@ -183,7 +182,7 @@ public class PlayController {
 
         root.getChildren().add(BlokusClient.asgnedBlocks);
         root.getChildren().add(blocks);
-        Scene scn = new Scene(root, 800, 600);
+        Scene scn = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
         stg.setScene(scn);
     }
 
@@ -201,7 +200,7 @@ public class PlayController {
 
         for(int i=0;i<PIECE_SIZE;i++) {
             for(int j=0;j<PIECE_SIZE;j++) {
-                Rectangle r = new Rectangle(LX + (Xpos+j) * BLOCK_WIDTH , LY + (Ypos+i) * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                Rectangle r = new Rectangle(LX + (xCor +j) * BLOCK_WIDTH , LY + (yCor +i) * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
 
                 if(piece[i][j] == 1) {
                     r.setFill(col[BlokusClient.playerId]);
@@ -213,7 +212,7 @@ public class PlayController {
 
         root.getChildren().add(BlokusClient.asgnedBlocks);
         root.getChildren().add(blocks);
-        Scene scn = new Scene(root, 800, 600);
+        Scene scn = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
         playerName.setText(BlokusClient.comObj.players[BlokusClient.comObj.turn]);
         stg.setScene(scn);
     }
@@ -221,20 +220,14 @@ public class PlayController {
     static void updateComObj() {
         // boardの更新
         int[][] piece = currentPiece.getPiece();
-        System.err.println("Xpos: " + Xpos + ", Ypos: " + Ypos);
 
-        for(int i = 0; i < PIECE_SIZE; i++) {
-            for(int j = 0; j < PIECE_SIZE; j++) {
-                System.err.print(piece[i][j] + " ");
-            }
-            System.err.println();
-        }
+        debugCheckPiece(piece);
 
         for(int i=0;i<PIECE_SIZE;i++) {
             for(int j=0;j<PIECE_SIZE;j++) {
-                int X = Xpos+j;
-                int Y = Ypos+i;
-                if(Y >= 0 && Y < 14 && X >= 0 && X < 14 && piece[i][j] == 1) {
+                int X = xCor +j;
+                int Y = yCor +i;
+                if(Y >= 0 && Y < BOARD_SIZE && X >= 0 && X < BOARD_SIZE && piece[i][j] == 1) {
                     BlokusClient.comObj.board[Y][X] = boardNum[BlokusClient.playerId];
                 }
             }
@@ -254,9 +247,9 @@ public class PlayController {
 
         for(int i=0;i<PIECE_SIZE;i++) {
             for(int j=0;j<PIECE_SIZE;j++) {
-                int X = Xpos+j;
-                int Y = Ypos+i;
-                if(Y >= 0 && Y < 14 && X >= 0 && X < 14) {
+                int X = xCor +j;
+                int Y = yCor +i;
+                if(Y >= 0 && Y < BOARD_SIZE && X >= 0 && X < BOARD_SIZE) {
                     // 重複排除
                     if(piece[i][j] == 1 && BlokusClient.comObj.board[Y][X] != 0) noDuplicates = false;
                     // (4,4),(9,9) or 角
@@ -272,5 +265,15 @@ public class PlayController {
 
         if(noDuplicates && (existInACorner || touchingAtTheCorner) && noPieceOnEdge) return true;
         else return false;
+    }
+
+    static void debugCheckPiece(int[][] piece) {
+        System.err.println("Xpos: " + xCor + ", Ypos: " + yCor);
+        for(int i = 0; i < PIECE_SIZE; i++) {
+            for(int j = 0; j < PIECE_SIZE; j++) {
+                System.err.print(piece[i][j] + " ");
+            }
+            System.err.println();
+        }
     }
 }

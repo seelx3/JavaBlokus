@@ -248,8 +248,8 @@
                    </image>
                </ImageView>
            </graphic></Button>
-       <Label fx:id="playerName" focusTraversable="false" layoutX="366.0" layoutY="30.0" text="Player Name" />
-      <Label fx:id="label1" layoutX="466.0" layoutY="30.0" text="'s turn" />
+       <Label fx:id="playerName" focusTraversable="false" layoutX="366.0" layoutY="20.0" text="Player Name" />
+      <Label fx:id="label1" layoutX="466.0" layoutY="20.0" text="'s turn" />
       <Button fx:id="goToTitle" layoutX="314.0" layoutY="528.0" mnemonicParsing="false" onAction="#onGoToTitleButton" prefHeight="1.0" prefWidth="171.0" text="Go to title screen" visible="false" />
    </children>
 </AnchorPane>

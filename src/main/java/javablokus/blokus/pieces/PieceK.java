@@ -1,7 +1,7 @@
-package javablokus.blokus;
+package javablokus.blokus.pieces;
 
 public class PieceK extends AbstractPiece{
-    PieceK() {
+    public PieceK() {
         super(
                 10,
                 new int[][]{

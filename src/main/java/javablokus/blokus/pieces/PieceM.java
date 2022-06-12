@@ -1,14 +1,14 @@
-package javablokus.blokus;
+package javablokus.blokus.pieces;
 
-public class PieceN extends AbstractPiece{
-    PieceN() {
+public class PieceM extends AbstractPiece{
+    public PieceM() {
         super(
-                13,
+                12,
                 new int[][]{
                 {0, 0, 0, 0, 0, 0, 0},
-                {0, 3, 2, 2, 3, 0, 0},
-                {0, 2, 1, 1, 2, 0, 0},
+                {0, 0, 3, 2, 3, 0, 0},
                 {0, 3, 2, 1, 2, 0, 0},
+                {0, 2, 1, 1, 2, 0, 0},
                 {0, 2, 1, 1, 2, 0, 0},
                 {0, 3, 2, 2, 3, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0}

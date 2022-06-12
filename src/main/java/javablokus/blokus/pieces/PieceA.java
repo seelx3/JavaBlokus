@@ -1,11 +1,7 @@
-package javablokus.blokus;
+package javablokus.blokus.pieces;
 
 public class PieceA extends AbstractPiece {
-    // 1 : ピースの実体
-    // 2 : ピースが辺で隣接するマス
-    // 3 : ピースが角で接するマス
-
-    PieceA() {
+    public PieceA() {
         super(
                 0,
                 new int[][]{

@@ -1,4 +1,4 @@
-package javablokus.blokus;
+package javablokus.blokus.pieces;
 
 abstract public class AbstractPiece {
     private static final int PIECE_SIZE = 7;

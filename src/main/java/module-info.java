@@ -7,4 +7,6 @@ module javablokus.javablokus {
 
     opens javablokus.blokus to javafx.fxml;
     exports javablokus.blokus;
+    exports javablokus.blokus.pieces;
+    opens javablokus.blokus.pieces to javafx.fxml;
 }
