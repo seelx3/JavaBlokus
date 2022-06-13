@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
-import static javablokus.blokus.JavaBlokus.stg;
+import static javablokus.blokus.BlokusClient.root;
 
 public class PlayController {
     private static final double BLOCK_SIZE = 30;
@@ -31,7 +31,7 @@ public class PlayController {
     static int xCor; // ピースの左上のマスのX座標に対応 0 <= xCor <= 13
     static int yCor; // ピースの左上のマスのY座標に対応 0 <= yCor <= 13
     static AbstractPiece currentPiece;
-    static Group root, blocks;
+    static Group blocks;
 
     @FXML public Label playerName; // ターンのプレイヤー
     @FXML public Button GiveUpButton;
@@ -149,11 +149,11 @@ public class PlayController {
         FXMLLoader fxmlLoader = new FXMLLoader(JavaBlokus.class.getResource("start-view.fxml"));
         try {
             Scene scene = new Scene(fxmlLoader.load(), SCENE_WIDTH, SCENE_HEIGHT);
-            stg.setScene(scene);
+            JavaBlokus.setView(scene);
         } catch (IOException ioe) {
             System.err.println(ioe);
         }
-        stg.show();
+        JavaBlokus.showView();
     }
 
     void setPos() {
@@ -161,9 +161,8 @@ public class PlayController {
         xCor = 4;
         yCor = 4;
 
-        root = new Group();
+        if(root.getChildren().contains(blocks)) root.getChildren().remove(blocks);
         blocks = new Group();
-        root.getChildren().add(BlokusClient.fxmlnode);
 
         int[][] piece = currentPiece.getPiece();
 
@@ -179,10 +178,7 @@ public class PlayController {
             }
         }
 
-        root.getChildren().add(BlokusClient.asgnedBlocks);
         root.getChildren().add(blocks);
-        Scene scn = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
-        stg.setScene(scn);
     }
 
     void changePos() {
@@ -191,9 +187,9 @@ public class PlayController {
             System.err.println("currentPiece == null !");
             return;
         }
-        root = new Group();
+
+        if(root.getChildren().contains(blocks)) root.getChildren().remove(blocks);
         blocks = new Group();
-        root.getChildren().add(BlokusClient.fxmlnode);
 
         int[][] piece = currentPiece.getPiece();
 
@@ -209,11 +205,7 @@ public class PlayController {
             }
         }
 
-        root.getChildren().add(BlokusClient.asgnedBlocks);
         root.getChildren().add(blocks);
-        Scene scn = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
-        playerName.setText(BlokusClient.comObj.players[BlokusClient.comObj.turn]);
-        stg.setScene(scn);
     }
 
     static void updateComObj() {

@@ -28,9 +28,10 @@ public class BlokusClient {
     static ObjectMapper mapper;
     static Scene currentScene;
     static Boolean gameFinished;
+    static PlayController pCtrl;
 
-    static Node fxmlnode;
-    static Group asgnedBlocks;
+    private static Node fxmlnode;
+    static Group root, asgnedBlocks;
     private static final double BLOCK_SIZE = 30;
     private static final int BOARD_SIZE = 14;
     private static final int LX = 187;
@@ -41,8 +42,6 @@ public class BlokusClient {
     BlokusClient (String pn) {
         setPlayerName(pn);
     }
-
-    PlayController pc;
 
     public void Init() throws IOException {
         addr = InetAddress.getByName("localhost");
@@ -61,7 +60,8 @@ public class BlokusClient {
                 true);                      // 送信バッファ設定
         mapper = new ObjectMapper();
 
-        pc = new PlayController();
+        pCtrl = new PlayController();
+        root = new Group();
         asgnedBlocks = new Group();
         gameFinished = false;
     }
@@ -102,7 +102,7 @@ public class BlokusClient {
             protected Void call() throws Exception {
                 while(!in.ready()) {
                     try{
-                        Thread.sleep(1000);
+                        Thread.sleep(300);
                     } catch (InterruptedException ie) {
                         System.err.println(ie);
                     }
@@ -126,6 +126,16 @@ public class BlokusClient {
     }
 
     public void waitForNextTurn() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("play-view.fxml"));
+        try {
+            fxmlnode = fxmlLoader.load();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        root.getChildren().add(fxmlnode);
+        pCtrl = fxmlLoader.getController(); // 使用中のコントローラーを取得
+
+        JavaBlokus.setView(new Scene(root, 800, 600));
 
         System.out.println("Wait for Next Turn");
         Task<Void> waitNext = new Task<Void>() {
@@ -134,7 +144,7 @@ public class BlokusClient {
                 while(true) {
                     while(!in.ready() && !gameFinished) {
                         try{
-                            Thread.sleep(1000);
+                            Thread.sleep(300);
                         } catch (InterruptedException ie) {
                             System.err.println(ie);
                         }
@@ -161,33 +171,21 @@ public class BlokusClient {
                         }
                         System.out.println(comObj);
 
+                        if(root.getChildren().contains(asgnedBlocks)) root.getChildren().remove(asgnedBlocks);
                         setAsgnedBlocks();
-                        Group root = new Group();
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("play-view.fxml"));
-                        try {
-                            fxmlnode = fxmlLoader.load();
-                        } catch (Exception e) {
-                            System.err.println(e);
-                        }
-                        root.getChildren().add(fxmlnode);
-                        PlayController pc = fxmlLoader.getController(); // 使用中のコントローラーを取得
+                        root.getChildren().add(asgnedBlocks);
+
+                        pCtrl.playerName.setText(comObj.players[comObj.turn]);
+                        if(comObj.turn != playerId) clearButton(pCtrl);
+                        else setButtonVisible(pCtrl);
 
                         if(comObj.finished) {
-                            clearButton(pc);
-                            pc.playerName.setText(comObj.whowon);
-                            pc.label1.setText("won!");
-                            pc.goToTitle.setVisible(true);
+                            clearButton(pCtrl);
+                            pCtrl.playerName.setText(comObj.whowon);
+                            pCtrl.label1.setText("won!");
+                            pCtrl.goToTitle.setVisible(true);
                             gameFinished = true;
                         }
-
-                        pc.playerName.setText(comObj.players[comObj.turn]);
-                        if(comObj.turn != playerId) clearButton(pc);
-                        else setButtonVisible(pc);
-
-                        root.getChildren().add(asgnedBlocks);
-                        currentScene = new Scene(root, 800, 600);
-                        JavaBlokus.setView(currentScene);
-
                     });
 
                 }
@@ -258,27 +256,36 @@ public class BlokusClient {
     }
 
     static void setButtonVisible(PlayController pc) {
-        if(comObj.usedPiece[playerId][0])  pc.AButton.setVisible(false);
-        if(comObj.usedPiece[playerId][1])  pc.BButton.setVisible(false);
-        if(comObj.usedPiece[playerId][2])  pc.CButton.setVisible(false);
-        if(comObj.usedPiece[playerId][3])  pc.DButton.setVisible(false);
-        if(comObj.usedPiece[playerId][4])  pc.EButton.setVisible(false);
-        if(comObj.usedPiece[playerId][5])  pc.FButton.setVisible(false);
-        if(comObj.usedPiece[playerId][6])  pc.GButton.setVisible(false);
-        if(comObj.usedPiece[playerId][7])  pc.HButton.setVisible(false);
-        if(comObj.usedPiece[playerId][8])  pc.IButton.setVisible(false);
-        if(comObj.usedPiece[playerId][9])  pc.JButton.setVisible(false);
-        if(comObj.usedPiece[playerId][10]) pc.KButton.setVisible(false);
-        if(comObj.usedPiece[playerId][11]) pc.LButton.setVisible(false);
-        if(comObj.usedPiece[playerId][12]) pc.MButton.setVisible(false);
-        if(comObj.usedPiece[playerId][13]) pc.NButton.setVisible(false);
-        if(comObj.usedPiece[playerId][14]) pc.OButton.setVisible(false);
-        if(comObj.usedPiece[playerId][15]) pc.PButton.setVisible(false);
-        if(comObj.usedPiece[playerId][16]) pc.QButton.setVisible(false);
-        if(comObj.usedPiece[playerId][17]) pc.RButton.setVisible(false);
-        if(comObj.usedPiece[playerId][18]) pc.SButton.setVisible(false);
-        if(comObj.usedPiece[playerId][19]) pc.TButton.setVisible(false);
-        if(comObj.usedPiece[playerId][20]) pc.UButton.setVisible(false);
+        if(!comObj.usedPiece[playerId][0])  pc.AButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][1])  pc.BButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][2])  pc.CButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][3])  pc.DButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][4])  pc.EButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][5])  pc.FButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][6])  pc.GButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][7])  pc.HButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][8])  pc.IButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][9])  pc.JButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][10]) pc.KButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][11]) pc.LButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][12]) pc.MButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][13]) pc.NButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][14]) pc.OButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][15]) pc.PButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][16]) pc.QButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][17]) pc.RButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][18]) pc.SButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][19]) pc.TButton.setVisible(true);
+        if(!comObj.usedPiece[playerId][20]) pc.UButton.setVisible(true);
+
+        pc.GiveUpButton.setVisible(true);
+        pc.ConfirmButton.setVisible(true);
+        pc.UpButton.setVisible(true);
+        pc.DownButton.setVisible(true);
+        pc.RightButton.setVisible(true);
+        pc.LeftButton.setVisible(true);
+        pc.SpinButton.setVisible(true);
+        pc.ReverseButton.setVisible(true);
     }
 
     static void clearButton(PlayController pc){

@@ -9,7 +9,7 @@ import java.io.*;
 
 public class JavaBlokus extends Application {
     static final int PLAYER_NUM = 2;
-    public static Stage stg;
+    private static Stage stg;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(JavaBlokus.class.getResource("start-view.fxml"));
@@ -28,4 +28,5 @@ public class JavaBlokus extends Application {
     public static void setView(Scene sn) {
         stg.setScene(sn);
     }
+    public static void showView() { stg.show(); }
 }
