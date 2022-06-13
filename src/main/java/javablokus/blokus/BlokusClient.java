@@ -102,7 +102,13 @@ public class BlokusClient {
         Task<Void> waitFor2ndPlayer = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                while(!in.ready()) { ; }
+                while(!in.ready()) {
+                    try{
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ie) {
+                        System.err.println(ie);
+                    }
+                }
                 Platform.runLater(() -> {
                     try {
                         String msg = in.readLine();
@@ -128,7 +134,13 @@ public class BlokusClient {
             @Override
             protected Void call() throws Exception {
                 while(true) {
-                    while(!in.ready() && !gameFinished) { ; }
+                    while(!in.ready() && !gameFinished) {
+                        try{
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ie) {
+                            System.err.println(ie);
+                        }
+                    }
                     if(gameFinished) break;
 
                     String msg = null;
