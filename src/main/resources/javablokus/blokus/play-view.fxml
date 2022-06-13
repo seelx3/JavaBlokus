@@ -174,10 +174,38 @@
                    </image>
                </ImageView>
            </graphic></Button>
-       <Button fx:id="GiveUpButton" focusTraversable="false" layoutX="653.0" layoutY="66.0" mnemonicParsing="false" onAction="#onGiveUpClick" prefHeight="40.0" prefWidth="55.0" text="GiveUp" />
-       <Button fx:id="ConfirmButton" focusTraversable="false" layoutX="647.0" layoutY="541.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="40.0" prefWidth="67.0" text="Confirm" />
-       <Button fx:id="ReverseButton" focusTraversable="false" layoutX="652.0" layoutY="409.0" mnemonicParsing="false" onAction="#ReverseClick" prefHeight="40.0" prefWidth="58.0" text="Reverse" />
-       <Button fx:id="SpinButton" focusTraversable="false" layoutX="652.0" layoutY="355.0" mnemonicParsing="false" onAction="#SpinClick" prefHeight="40.0" prefWidth="58.0" text="Spin" />
+       <Button fx:id="GiveUpButton" focusTraversable="false" layoutX="653.0" layoutY="66.0" mnemonicParsing="false" onAction="#onGiveUpClick" prefHeight="40.0" prefWidth="55.0">
+         <graphic>
+            <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/button/giveup.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+       <Button fx:id="ConfirmButton" focusTraversable="false" layoutX="647.0" layoutY="541.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="40.0" prefWidth="67.0">
+           <graphic>
+               <ImageView fitHeight="34.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/button/confirm.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="ReverseButton" focusTraversable="false" layoutX="652.0" layoutY="409.0" mnemonicParsing="false" onAction="#ReverseClick" prefHeight="40.0" prefWidth="58.0">
+           <graphic>
+               <ImageView fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/button/reverse.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+       <Button fx:id="SpinButton" focusTraversable="false" layoutX="652.0" layoutY="355.0" mnemonicParsing="false" onAction="#SpinClick" prefHeight="40.0" prefWidth="58.0">
+           <graphic>
+               <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/button/spin.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
        <Button fx:id="DownButton" focusTraversable="false" layoutX="661.0" layoutY="286.0" mnemonicParsing="false" onAction="#DownClick" prefHeight="40.0" prefWidth="40.0">
            <graphic>
                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
