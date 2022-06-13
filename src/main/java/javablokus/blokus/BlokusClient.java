@@ -31,10 +31,8 @@ public class BlokusClient {
 
     static Node fxmlnode;
     static Group asgnedBlocks;
-    private static final double BLOCK_HEIGHT = 30.44;
-    private static final double BLOCK_WIDTH = 30;
-    private static final int COL = 14;
-    private static final int ROW = 14;
+    private static final double BLOCK_SIZE = 30;
+    private static final int BOARD_SIZE = 14;
     private static final int LX = 187;
     private static final int LY = 53;
     private static final int BLUE = 2;
@@ -232,26 +230,29 @@ public class BlokusClient {
 
     static void setAsgnedBlocks() {
         asgnedBlocks.getChildren().removeAll();
+        Group base = new Group();
         Group block = new Group();
         Group startPoint = new Group();
-        for (int i = 0; i < ROW; i++) {
-            for (int j = 0; j < COL; j++) {
-                Rectangle r = new Rectangle(LX + j * BLOCK_WIDTH, LY + i * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                Rectangle r = new Rectangle(LX + j * BLOCK_SIZE, LY + i * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                r.setFill(Color.WHITE);
+                r.setStroke(Color.BLACK);
+                base.getChildren().add(r);
                 if((i==4 && j==4) || (i==9 && j==9)) {
                     r.setFill(Color.LIGHTGRAY);
                     startPoint.getChildren().add(r);
                 }
                 if(comObj.board[i][j] == BLUE) {
                     r.setFill(Color.DODGERBLUE);
-                    r.setStroke(Color.BLACK);
                     block.getChildren().add(r);
                 }else if(comObj.board[i][j] == RED) {
                     r.setFill(Color.DARKRED);
-                    r.setStroke(Color.BLACK);
                     block.getChildren().add(r);
                 }
             }
         }
+        asgnedBlocks.getChildren().add(base);
         asgnedBlocks.getChildren().add(startPoint);
         asgnedBlocks.getChildren().add(block);
     }

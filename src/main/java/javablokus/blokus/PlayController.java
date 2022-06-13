@@ -16,8 +16,7 @@ import java.io.IOException;
 import static javablokus.blokus.JavaBlokus.stg;
 
 public class PlayController {
-    private static final double BLOCK_HEIGHT = 30.44;
-    private static final double BLOCK_WIDTH = 30;
+    private static final double BLOCK_SIZE = 30;
     private static final int PIECE_SIZE = 7;
     private static final int BOARD_SIZE = 14;
     private static final int LX = 187;
@@ -170,7 +169,7 @@ public class PlayController {
 
         for(int i=0;i<PIECE_SIZE;i++) {
             for(int j=0;j<PIECE_SIZE;j++) {
-                Rectangle r = new Rectangle(LX + (xCor +j) * BLOCK_WIDTH , LY + (yCor +i) * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                Rectangle r = new Rectangle(LX + (xCor +j) * BLOCK_SIZE , LY + (yCor +i) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
 
                 if(piece[i][j] == 1) {
                     r.setFill(col[BlokusClient.playerId]);
@@ -200,7 +199,7 @@ public class PlayController {
 
         for(int i=0;i<PIECE_SIZE;i++) {
             for(int j=0;j<PIECE_SIZE;j++) {
-                Rectangle r = new Rectangle(LX + (xCor +j) * BLOCK_WIDTH , LY + (yCor +i) * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                Rectangle r = new Rectangle(LX + (xCor +j) * BLOCK_SIZE , LY + (yCor +i) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
 
                 if(piece[i][j] == 1) {
                     r.setFill(col[BlokusClient.playerId]);
