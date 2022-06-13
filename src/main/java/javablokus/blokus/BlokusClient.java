@@ -26,7 +26,6 @@ public class BlokusClient {
     private String playerName;
     static Communication comObj; // 共有
     static ObjectMapper mapper;
-    static Scene currentScene;
     static Boolean gameFinished;
     static PlayController pCtrl;
 
@@ -97,11 +96,11 @@ public class BlokusClient {
 
         // Communicationオブジェクトの情報をサーバーから取得をするタスク
         // 取得後にplay-viewに画面遷移
-        Task<Void> waitFor2ndPlayer = new Task<Void>() {
+        Task<Void> waitFor2ndPlayer = new Task<>() {
             @Override
             protected Void call() throws Exception {
-                while(!in.ready()) {
-                    try{
+                while (!in.ready()) {
+                    try {
                         Thread.sleep(300);
                     } catch (InterruptedException ie) {
                         System.err.println(ie);
@@ -138,18 +137,18 @@ public class BlokusClient {
         JavaBlokus.setView(new Scene(root, 800, 600));
 
         System.out.println("Wait for Next Turn");
-        Task<Void> waitNext = new Task<Void>() {
+        Task<Void> waitNext = new Task<>() {
             @Override
             protected Void call() throws Exception {
-                while(true) {
-                    while(!in.ready() && !gameFinished) {
-                        try{
+                while (true) {
+                    while (!in.ready() && !gameFinished) {
+                        try {
                             Thread.sleep(300);
                         } catch (InterruptedException ie) {
                             System.err.println(ie);
                         }
                     }
-                    if(gameFinished) break;
+                    if (gameFinished) break;
 
                     String msg = null;
                     try {
@@ -157,7 +156,7 @@ public class BlokusClient {
                     } catch (IOException e) {
                         System.err.println(e);
                     }
-                    if(msg == null) {
+                    if (msg == null) {
                         System.out.println();
                         break;
                     }
@@ -171,15 +170,15 @@ public class BlokusClient {
                         }
                         System.out.println(comObj);
 
-                        if(root.getChildren().contains(asgnedBlocks)) root.getChildren().remove(asgnedBlocks);
+                        root.getChildren().remove(asgnedBlocks);
                         setAsgnedBlocks();
                         root.getChildren().add(asgnedBlocks);
 
                         pCtrl.playerName.setText(comObj.players[comObj.turn]);
-                        if(comObj.turn != playerId) clearButton(pCtrl);
+                        if (comObj.turn != playerId) clearButton(pCtrl);
                         else setButtonVisible(pCtrl);
 
-                        if(comObj.finished) {
+                        if (comObj.finished) {
                             clearButton(pCtrl);
                             pCtrl.playerName.setText(comObj.whowon);
                             pCtrl.label1.setText("won!");
@@ -220,10 +219,6 @@ public class BlokusClient {
         }
 
         waitForStart();
-    }
-
-    void disconnect() throws IOException {
-        socket.close();
     }
 
     static void setAsgnedBlocks() {

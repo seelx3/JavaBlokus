@@ -14,9 +14,9 @@ public class Communication {
 
     @Override
     public String toString() {
-        String boardStat = "";
+        StringBuilder boardStat = new StringBuilder();
         for (int i = 0; i < 14; i++) {
-            boardStat += Arrays.toString(board[i]) + "\n";
+            boardStat.append(Arrays.toString(board[i])).append("\n");
         }
         return "{\nplayers: " + Arrays.deepToString(players) + "\nturn: " + turn + "\nboard:\n" + boardStat +
                 "giveup: " + giveup + "\nfinished: " + finished + "\nwhowon: " + whowon + "\nusedPiece: " +

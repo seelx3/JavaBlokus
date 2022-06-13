@@ -1,7 +1,6 @@
 package javablokus.blokus;
 
 import javablokus.blokus.pieces.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -21,8 +20,8 @@ public class PlayController {
     private static final int BOARD_SIZE = 14;
     private static final int LX = 187;
     private static final int LY = 53;
-    private static final Color col[] = {Color.DEEPSKYBLUE, Color.CRIMSON};
-    private static final int boardNum[] = {2, 3};
+    private static final Color[] col = {Color.DEEPSKYBLUE, Color.CRIMSON};
+    private static final int[] boardNum = {2, 3};
     private static final int SCENE_WIDTH = 800;
     private static final int SCENE_HEIGHT = 600;
     private static final int MIN_COR = -3;
@@ -69,30 +68,30 @@ public class PlayController {
     @FXML Button goToTitle;
 
     /* Button onAction 宣言部 */
-    @FXML  protected void onAButtonClick(ActionEvent ev) { currentPiece = new PieceA(); setPos(); }
-    @FXML  protected void onBButtonClick(ActionEvent ev) { currentPiece = new PieceB(); setPos(); }
-    @FXML  protected void onCButtonClick(ActionEvent ev) { currentPiece = new PieceC(); setPos(); }
-    @FXML  protected void onDButtonClick(ActionEvent ev) { currentPiece = new PieceD(); setPos(); }
-    @FXML  protected void onEButtonClick(ActionEvent ev) { currentPiece = new PieceE(); setPos(); }
-    @FXML  protected void onFButtonClick(ActionEvent ev) { currentPiece = new PieceF(); setPos(); }
-    @FXML  protected void onGButtonClick(ActionEvent ev) { currentPiece = new PieceG(); setPos(); }
-    @FXML  protected void onHButtonClick(ActionEvent ev) { currentPiece = new PieceH(); setPos(); }
-    @FXML  protected void onIButtonClick(ActionEvent ev) { currentPiece = new PieceI(); setPos(); }
-    @FXML  protected void onJButtonClick(ActionEvent ev) { currentPiece = new PieceJ(); setPos(); }
-    @FXML  protected void onKButtonClick(ActionEvent ev) { currentPiece = new PieceK(); setPos(); }
-    @FXML  protected void onLButtonClick(ActionEvent ev) { currentPiece = new PieceL(); setPos(); }
-    @FXML  protected void onMButtonClick(ActionEvent ev) { currentPiece = new PieceM(); setPos(); }
-    @FXML  protected void onNButtonClick(ActionEvent ev) { currentPiece = new PieceN(); setPos(); }
-    @FXML  protected void onOButtonClick(ActionEvent ev) { currentPiece = new PieceO(); setPos(); }
-    @FXML  protected void onPButtonClick(ActionEvent ev) { currentPiece = new PieceP(); setPos(); }
-    @FXML  protected void onQButtonClick(ActionEvent ev) { currentPiece = new PieceQ(); setPos(); }
-    @FXML  protected void onRButtonClick(ActionEvent ev) { currentPiece = new PieceR(); setPos(); }
-    @FXML  protected void onSButtonClick(ActionEvent ev) { currentPiece = new PieceS(); setPos(); }
-    @FXML  protected void onTButtonClick(ActionEvent ev) { currentPiece = new PieceT(); setPos(); }
-    @FXML  protected void onUButtonClick(ActionEvent ev) { currentPiece = new PieceU(); setPos(); }
+    @FXML  protected void onAButtonClick() { currentPiece = new PieceA(); setPos(); }
+    @FXML  protected void onBButtonClick() { currentPiece = new PieceB(); setPos(); }
+    @FXML  protected void onCButtonClick() { currentPiece = new PieceC(); setPos(); }
+    @FXML  protected void onDButtonClick() { currentPiece = new PieceD(); setPos(); }
+    @FXML  protected void onEButtonClick() { currentPiece = new PieceE(); setPos(); }
+    @FXML  protected void onFButtonClick() { currentPiece = new PieceF(); setPos(); }
+    @FXML  protected void onGButtonClick() { currentPiece = new PieceG(); setPos(); }
+    @FXML  protected void onHButtonClick() { currentPiece = new PieceH(); setPos(); }
+    @FXML  protected void onIButtonClick() { currentPiece = new PieceI(); setPos(); }
+    @FXML  protected void onJButtonClick() { currentPiece = new PieceJ(); setPos(); }
+    @FXML  protected void onKButtonClick() { currentPiece = new PieceK(); setPos(); }
+    @FXML  protected void onLButtonClick() { currentPiece = new PieceL(); setPos(); }
+    @FXML  protected void onMButtonClick() { currentPiece = new PieceM(); setPos(); }
+    @FXML  protected void onNButtonClick() { currentPiece = new PieceN(); setPos(); }
+    @FXML  protected void onOButtonClick() { currentPiece = new PieceO(); setPos(); }
+    @FXML  protected void onPButtonClick() { currentPiece = new PieceP(); setPos(); }
+    @FXML  protected void onQButtonClick() { currentPiece = new PieceQ(); setPos(); }
+    @FXML  protected void onRButtonClick() { currentPiece = new PieceR(); setPos(); }
+    @FXML  protected void onSButtonClick() { currentPiece = new PieceS(); setPos(); }
+    @FXML  protected void onTButtonClick() { currentPiece = new PieceT(); setPos(); }
+    @FXML  protected void onUButtonClick() { currentPiece = new PieceU(); setPos(); }
 
     @FXML
-    protected void DownClick(ActionEvent ev) {
+    protected void DownClick() {
         if(comObj.usedPiece[playerId][currentPiece.id]) return;
         if(yCor >= MAX_COR) return;
         yCor += 1;
@@ -100,7 +99,7 @@ public class PlayController {
     }
 
     @FXML
-    protected void UpClick(ActionEvent ev) {
+    protected void UpClick() {
         if(comObj.usedPiece[playerId][currentPiece.id]) return;
         if(yCor <= MIN_COR) return;
         yCor -= 1;
@@ -108,7 +107,7 @@ public class PlayController {
     }
 
     @FXML
-    protected void LeftClick(ActionEvent ev) {
+    protected void LeftClick() {
         if(comObj.usedPiece[playerId][currentPiece.id]) return;
         if(xCor <= MIN_COR) return;
         xCor -= 1;
@@ -116,7 +115,7 @@ public class PlayController {
     }
 
     @FXML
-    protected void RightClick(ActionEvent ev) {
+    protected void RightClick() {
         if(comObj.usedPiece[playerId][currentPiece.id]) return;
         if(xCor >= MAX_COR) return;
         xCor += 1;
@@ -124,34 +123,34 @@ public class PlayController {
     }
 
     @FXML
-    void ReverseClick(ActionEvent ev) {
+    void ReverseClick() {
         if(comObj.usedPiece[playerId][currentPiece.id]) return;
         currentPiece.reversePiece();
         changePos();
     }
 
     @FXML
-    void SpinClick(ActionEvent ev) {
+    void SpinClick() {
         if(comObj.usedPiece[playerId][currentPiece.id]) return;
         currentPiece.spinPiece();
         changePos();
     }
 
     @FXML
-    void onGiveUpClick(ActionEvent ev) {
+    void onGiveUpClick() {
         BlokusClient.comObj.giveup = true;
         BlokusClient.sendComObj();
     }
 
     @FXML
-    void onConfirmClick(ActionEvent ev) {
+    void onConfirmClick() {
         if(!isPlaceable()) return;
         updateComObj();
         BlokusClient.sendComObj();
     }
 
     @FXML
-    void onGoToTitleButton(ActionEvent ev) {
+    void onGoToTitleButton() {
         FXMLLoader fxmlLoader = new FXMLLoader(JavaBlokus.class.getResource("start-view.fxml"));
         try {
             Scene scene = new Scene(fxmlLoader.load(), SCENE_WIDTH, SCENE_HEIGHT);
@@ -167,7 +166,7 @@ public class PlayController {
         xCor = 4;
         yCor = 4;
 
-        if(root.getChildren().contains(blocks)) root.getChildren().remove(blocks);
+        root.getChildren().remove(blocks);
         blocks = new Group();
 
         int[][] piece = currentPiece.getPiece();
@@ -194,7 +193,7 @@ public class PlayController {
             return;
         }
 
-        if(root.getChildren().contains(blocks)) root.getChildren().remove(blocks);
+        root.getChildren().remove(blocks);
         blocks = new Group();
 
         int[][] piece = currentPiece.getPiece();
@@ -235,10 +234,10 @@ public class PlayController {
     }
 
     static Boolean isPlaceable(){
-        Boolean noDuplicates = true; // 重複するピースが存在しない
-        Boolean existInACorner = false; // (4,4),(9,9)のいずれかを埋める
-        Boolean touchingAtTheCorner = false; // 同じ色のピースと角で接する
-        Boolean noPieceOnEdge = true; // 同じ色のピースと辺で接しない
+        boolean noDuplicates = true; // 重複するピースが存在しない
+        boolean existInACorner = false; // (4,4),(9,9)のいずれかを埋める
+        boolean touchingAtTheCorner = false; // 同じ色のピースと角で接する
+        boolean noPieceOnEdge = true; // 同じ色のピースと辺で接しない
 
         int[][] piece = currentPiece.getPiece();
 
@@ -260,8 +259,7 @@ public class PlayController {
             }
         }
 
-        if(noDuplicates && (existInACorner || touchingAtTheCorner) && noPieceOnEdge) return true;
-        else return false;
+        return noDuplicates && (existInACorner || touchingAtTheCorner) && noPieceOnEdge;
     }
 
     static void debugCheckPiece(int[][] piece) {

@@ -15,7 +15,7 @@ abstract public class AbstractPiece {
     }
 
     public void reversePiece() {
-        int tmp[][] = new int[7][7];
+        int[][] tmp = new int[7][7];
         for(int i = 0; i < PIECE_SIZE; i++) {
             tmp[i] = piece[i].clone();
         }
@@ -39,13 +39,14 @@ abstract public class AbstractPiece {
         }
     }
 
-    void checkCurrentPiece(int pce[][]) {
-        for (int i = 0; i < PIECE_SIZE; i++) {
-            for (int j = 0; j < PIECE_SIZE; j++) {
-                System.out.print(pce[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
+    /* デバッグ用 プリント出力 */
+//    void checkCurrentPiece(int[][] pce) {
+//        for (int i = 0; i < PIECE_SIZE; i++) {
+//            for (int j = 0; j < PIECE_SIZE; j++) {
+//                System.out.print(pce[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println();
+//    }
 }
