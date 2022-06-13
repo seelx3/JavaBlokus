@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
-import static javablokus.blokus.BlokusClient.root;
+import static javablokus.blokus.BlokusClient.*;
 
 public class PlayController {
     private static final double BLOCK_SIZE = 30;
@@ -93,6 +93,7 @@ public class PlayController {
 
     @FXML
     protected void DownClick(ActionEvent ev) {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
         if(yCor >= MAX_COR) return;
         yCor += 1;
         changePos();
@@ -100,6 +101,7 @@ public class PlayController {
 
     @FXML
     protected void UpClick(ActionEvent ev) {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
         if(yCor <= MIN_COR) return;
         yCor -= 1;
         changePos();
@@ -107,6 +109,7 @@ public class PlayController {
 
     @FXML
     protected void LeftClick(ActionEvent ev) {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
         if(xCor <= MIN_COR) return;
         xCor -= 1;
         changePos();
@@ -114,6 +117,7 @@ public class PlayController {
 
     @FXML
     protected void RightClick(ActionEvent ev) {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
         if(xCor >= MAX_COR) return;
         xCor += 1;
         changePos();
@@ -121,12 +125,14 @@ public class PlayController {
 
     @FXML
     void ReverseClick(ActionEvent ev) {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
         currentPiece.reversePiece();
         changePos();
     }
 
     @FXML
     void SpinClick(ActionEvent ev) {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
         currentPiece.spinPiece();
         changePos();
     }
