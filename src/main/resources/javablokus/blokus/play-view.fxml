@@ -176,7 +176,7 @@
            </graphic></Button>
        <Button fx:id="GiveUpButton" focusTraversable="false" layoutX="653.0" layoutY="66.0" mnemonicParsing="false" onAction="#onGiveUpClick" prefHeight="40.0" prefWidth="55.0">
          <graphic>
-            <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="32.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/button/giveup.png" />
                </image>
@@ -200,7 +200,7 @@
            </graphic></Button>
        <Button fx:id="SpinButton" focusTraversable="false" layoutX="652.0" layoutY="355.0" mnemonicParsing="false" onAction="#SpinClick" prefHeight="40.0" prefWidth="58.0">
            <graphic>
-               <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                    <image>
                        <Image url="@images/button/spin.png" />
                    </image>
@@ -241,5 +241,6 @@
        <Label fx:id="playerName" focusTraversable="false" layoutX="366.0" layoutY="20.0" text="Player Name" />
       <Label fx:id="label1" layoutX="466.0" layoutY="20.0" text="'s turn" />
       <Button fx:id="goToTitle" layoutX="314.0" layoutY="528.0" mnemonicParsing="false" onAction="#onGoToTitleButton" prefHeight="1.0" prefWidth="171.0" text="Go to title screen" visible="false" />
+      <Label layoutX="14.0" layoutY="87.0" prefHeight="303.0" prefWidth="130.0" text="~~ RULES ~~&#10;&#10;1. In the beginning, &#10;place the piece to cover &#10;either (5,5) or (10,10).&#10;(filled in gray)&#10;&#10;2. Place a new piece &#10;so that it touches &#10;the piece you placed &#10;at the corner.&#10;&#10;3. The player &#10;who cannot place &#10;a piece first loses.&#10;&#10;~~~~~~~~~" textAlignment="JUSTIFY" />
    </children>
 </AnchorPane>
