@@ -9,10 +9,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -31,6 +33,7 @@ public class BlokusClient {
 
     private static Node fxmlnode;
     static Group root, asgnedBlocks;
+    public static Scene scn;
     private static final double BLOCK_SIZE = 30;
     private static final int BOARD_SIZE = 14;
     private static final int LX = 187;
@@ -134,7 +137,9 @@ public class BlokusClient {
         root.getChildren().add(fxmlnode);
         pCtrl = fxmlLoader.getController(); // 使用中のコントローラーを取得
 
-        JavaBlokus.setView(new Scene(root, 800, 600));
+        scn = new Scene(root, 800, 600);
+        pCtrl.keyInit();
+        JavaBlokus.setView(scn);
 
         System.out.println("Wait for Next Turn");
         Task<Void> waitNext = new Task<>() {

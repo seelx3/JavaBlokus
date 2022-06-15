@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -90,64 +91,36 @@ public class PlayController {
     @FXML  protected void onTButtonClick() { currentPiece = new PieceT(); setPos(); }
     @FXML  protected void onUButtonClick() { currentPiece = new PieceU(); setPos(); }
 
-    @FXML
-    protected void DownClick() {
-        if(comObj.usedPiece[playerId][currentPiece.id]) return;
-        if(yCor >= MAX_COR) return;
-        yCor += 1;
-        changePos();
+    public void keyInit() {
+        scn.setOnKeyPressed(this::keyPressed);
     }
 
-    @FXML
-    protected void UpClick() {
-        if(comObj.usedPiece[playerId][currentPiece.id]) return;
-        if(yCor <= MIN_COR) return;
-        yCor -= 1;
-        changePos();
+    private void keyPressed(KeyEvent ke) {
+        switch (ke.getCode()) {
+            case ENTER -> confirmAction();
+            case SPACE -> spinAction();
+            case UP -> upAction();
+            case DOWN -> downAction();
+            case RIGHT -> rightAction();
+            case LEFT -> leftAction();
+        }
     }
 
-    @FXML
-    protected void LeftClick() {
-        if(comObj.usedPiece[playerId][currentPiece.id]) return;
-        if(xCor <= MIN_COR) return;
-        xCor -= 1;
-        changePos();
-    }
+    @FXML protected void DownClick() { downAction(); }
+    @FXML protected void UpClick() { upAction(); }
+    @FXML protected void LeftClick() { leftAction(); }
+    @FXML protected void RightClick() { rightAction(); }
+
+    @FXML protected void ReverseClick() { reverseAction(); }
+    @FXML protected void SpinClick() { spinAction(); }
 
     @FXML
-    protected void RightClick() {
-        if(comObj.usedPiece[playerId][currentPiece.id]) return;
-        if(xCor >= MAX_COR) return;
-        xCor += 1;
-        changePos();
-    }
-
-    @FXML
-    void ReverseClick() {
-        if(comObj.usedPiece[playerId][currentPiece.id]) return;
-        currentPiece.reversePiece();
-        changePos();
-    }
-
-    @FXML
-    void SpinClick() {
-        if(comObj.usedPiece[playerId][currentPiece.id]) return;
-        currentPiece.spinPiece();
-        changePos();
-    }
-
-    @FXML
-    void onGiveUpClick() {
+    protected void onGiveUpClick() {
         BlokusClient.comObj.giveup = true;
         BlokusClient.sendComObj();
     }
 
-    @FXML
-    void onConfirmClick() {
-        if(!isPlaceable()) return;
-        updateComObj();
-        BlokusClient.sendComObj();
-    }
+    @FXML protected void onConfirmClick() { confirmAction(); }
 
     @FXML
     void onGoToTitleButton() {
@@ -260,6 +233,52 @@ public class PlayController {
         }
 
         return noDuplicates && (existInACorner || touchingAtTheCorner) && noPieceOnEdge;
+    }
+
+    private void upAction() {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
+        if(yCor <= MIN_COR) return;
+        yCor -= 1;
+        changePos();
+    }
+
+    private void downAction() {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
+        if(yCor >= MAX_COR) return;
+        yCor += 1;
+        changePos();
+    }
+
+    private void rightAction() {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
+        if(xCor >= MAX_COR) return;
+        xCor += 1;
+        changePos();
+    }
+
+    private void leftAction() {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
+        if(xCor <= MIN_COR) return;
+        xCor -= 1;
+        changePos();
+    }
+
+    private void spinAction() {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
+        currentPiece.spinPiece();
+        changePos();
+    }
+
+    private void reverseAction() {
+        if(comObj.usedPiece[playerId][currentPiece.id]) return;
+        currentPiece.reversePiece();
+        changePos();
+    }
+
+    private void confirmAction() {
+        if(!isPlaceable()) return;
+        updateComObj();
+        BlokusClient.sendComObj();
     }
 
     static void debugCheckPiece(int[][] piece) {
