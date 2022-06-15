@@ -23,16 +23,17 @@ public class BlokusClient {
     InetAddress addr;
     Socket socket;
     BufferedReader in;
-    static PrintWriter out;
-    static int playerId; // 0 or 1　/ 共有
+    private static PrintWriter out;
+    public static int playerId; // 0 or 1　/ 共有
     private String playerName;
-    static Communication comObj; // 共有
-    static ObjectMapper mapper;
-    static Boolean gameFinished;
-    static PlayController pCtrl;
+    public static Communication comObj; // 共有
+    private static ObjectMapper mapper;
+    private static Boolean gameFinished;
+    private static PlayController pCtrl;
 
     private static Node fxmlnode;
-    static Group root, asgnedBlocks;
+    public static Group root;
+    private static Group asgnedBlocks;
     public static Scene scn;
     private static final double BLOCK_SIZE = 30;
     private static final int BOARD_SIZE = 14;
@@ -68,12 +69,12 @@ public class BlokusClient {
         gameFinished = false;
     }
 
-    public void setPlayerName(String name) {
+    private void setPlayerName(String name) {
         playerName = name;
         System.out.println("Set the playerName to :" + playerName);
     }
 
-    public void sendPlayerName() {
+    private void sendPlayerName() {
         out.println(playerName);
         System.out.println("Send player name : " + playerName);
     }
@@ -86,13 +87,13 @@ public class BlokusClient {
         }
     }
 
-    public void getPlayerId() throws IOException {
+    private void getPlayerId() throws IOException {
         // サーバーからplayerIdを受け取る
         playerId = Integer.parseInt(in.readLine());
         System.out.println("Set playerID to : " + playerId);
     }
 
-    public void waitForStart() {
+    private void waitForStart() {
         // サーバーからの応答を受け取ってゲーム画面に遷移
 
         System.out.println("wait for start");
@@ -127,7 +128,7 @@ public class BlokusClient {
         ex.shutdown();
     }
 
-    public void waitForNextTurn() {
+    private void waitForNextTurn() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("play-view.fxml"));
         try {
             fxmlnode = fxmlLoader.load();
@@ -227,7 +228,7 @@ public class BlokusClient {
         return 0;
     }
 
-    static void setAsgnedBlocks() {
+    private static void setAsgnedBlocks() {
         asgnedBlocks.getChildren().removeAll();
         Group base = new Group();
         Group block = new Group();
@@ -256,7 +257,7 @@ public class BlokusClient {
         asgnedBlocks.getChildren().add(block);
     }
 
-    static void setButtonVisible(PlayController pc) {
+    private static void setButtonVisible(PlayController pc) {
         if(!comObj.usedPiece[playerId][0])  pc.AButton.setVisible(true);
         if(!comObj.usedPiece[playerId][1])  pc.BButton.setVisible(true);
         if(!comObj.usedPiece[playerId][2])  pc.CButton.setVisible(true);
@@ -289,7 +290,7 @@ public class BlokusClient {
         pc.ReverseButton.setVisible(true);
     }
 
-    static void clearButton(PlayController pc){
+    private static void clearButton(PlayController pc){
         pc.AButton.setVisible(false);
         pc.BButton.setVisible(false);
         pc.CButton.setVisible(false);

@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class StartController {
-    static BlokusClient bc;
+    private BlokusClient bc;
 
     @FXML
     private TextField playername;

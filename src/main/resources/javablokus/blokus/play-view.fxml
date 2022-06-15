@@ -241,6 +241,6 @@
        <Label fx:id="playerName" focusTraversable="false" layoutX="366.0" layoutY="20.0" text="Player Name" />
       <Label fx:id="label1" layoutX="466.0" layoutY="20.0" text="'s turn" />
       <Button fx:id="goToTitle" layoutX="314.0" layoutY="528.0" mnemonicParsing="false" onAction="#onGoToTitleButton" prefHeight="1.0" prefWidth="171.0" text="Go to title screen" visible="false" />
-      <Label layoutX="14.0" layoutY="87.0" prefHeight="438.0" prefWidth="130.0" text="~~ RULES ~~&#10;&#10;1. In the beginning, &#10;place the piece to cover &#10;either (5,5) or (10,10).&#10;(filled in gray)&#10;&#10;2. Place a new piece &#10;so that it touches &#10;the piece you placed &#10;at the corner.&#10;&#10;3. The player &#10;who cannot place &#10;a piece first loses.&#10;&#10;note:&#10;Up, Down, Right, &#10;Left, Space, Enter &#10;keys are also available.&#10;&#10;~~~~~~~~~" textAlignment="JUSTIFY" />
+      <Label layoutX="14.0" layoutY="40.0" prefHeight="438.0" prefWidth="130.0" text="~~ RULES ~~&#10;&#10;1. In the beginning, &#10;place the piece to cover &#10;either (5,5) or (10,10).&#10;(filled in gray)&#10;&#10;2. Place a new piece &#10;so that it touches &#10;the piece you placed &#10;at the corner.&#10;&#10;3. The player &#10;who cannot place &#10;a piece first loses.&#10;&#10;note:&#10;Up, Down, Right, &#10;Left, Space, Enter &#10;keys are also available.&#10;&#10;~~~~~~~~~" textAlignment="JUSTIFY" />
    </children>
 </AnchorPane>
