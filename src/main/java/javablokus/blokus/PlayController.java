@@ -190,7 +190,7 @@ public class PlayController {
         // boardの更新
         int[][] piece = currentPiece.getPiece();
 
-        debugCheckPiece(piece);
+//        debugCheckPiece(piece);
 
         for(int i=0;i<PIECE_SIZE;i++) {
             for(int j=0;j<PIECE_SIZE;j++) {

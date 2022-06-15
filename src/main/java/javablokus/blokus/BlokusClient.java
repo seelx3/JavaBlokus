@@ -113,7 +113,7 @@ public class BlokusClient {
                 Platform.runLater(() -> {
                     try {
                         String msg = in.readLine();
-                        System.out.println(msg);
+//                        System.out.println(msg);
                     } catch (IOException e) {
                         System.err.println(e);
                     }
@@ -172,9 +172,9 @@ public class BlokusClient {
                         try {
                             comObj = mapper.readValue(objmsg, Communication.class); // comObjの更新
                         } catch (Exception e) {
-                            System.out.println(e);
+                            System.err.println(e);
                         }
-                        System.out.println(comObj);
+//                        System.out.println(comObj);
 
                         root.getChildren().remove(asgnedBlocks);
                         setAsgnedBlocks();
