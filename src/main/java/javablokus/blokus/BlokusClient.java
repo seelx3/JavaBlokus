@@ -199,12 +199,12 @@ public class BlokusClient {
 
     }
 
-    void connectToServer() {
+    public int connectToServer() {
         try{
             Init();
         } catch (IOException e) {
             System.err.println(e);
-            System.out.println("Connection Failed!");
+            return -1;
         }
 
         // 名前をサーバーに送信
@@ -219,6 +219,7 @@ public class BlokusClient {
         }
 
         waitForStart();
+        return 0;
     }
 
     static void setAsgnedBlocks() {

@@ -19,7 +19,6 @@ public class StartController {
 
     @FXML
     protected void onStartButtonClick() {
-
         if(playername.getText().equals("")){
             starttext.setText("Please enter your name!");
             return;
@@ -29,7 +28,10 @@ public class StartController {
         startButton.setVisible(false);
 
         bc = new BlokusClient(playername.getText());
-        bc.connectToServer();
+        if(bc.connectToServer() == -1){
+            starttext.setText("Connection Failed!");
+            startButton.setVisible(true);
+        }
     }
 
 }
