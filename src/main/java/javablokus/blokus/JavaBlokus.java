@@ -18,6 +18,8 @@ public class JavaBlokus extends Application {
         stage.setScene(scene);
         stage.show();
         stg = stage;
+
+        stg.setOnCloseRequest(ev -> System.exit(-1));
     }
 
     public static void main(String[] args) {
